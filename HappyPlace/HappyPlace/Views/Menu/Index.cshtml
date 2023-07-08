@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "หน้าเมนู";
+}
+
+<div ng-controller="setupMenuController" >
+    <div class="cardMenu" style="padding-top: 5rem;">
+        @*<div class="card-header" style=" background-color: #A93226; border-top-left-radius: 21px; border-top-right-radius: 21px; ">
+            <span class="badge-warning text-light font-weight-bold rounded-pill" style="padding-left:50px; padding-right:50px; padding-bottom: 5px; padding-top: 5px;">เมนู</span>
+        </div>*@
+        <div class="card-body text-center col-auto"
+             style="background-color: #a0c2fa38; border-radius: 21px; padding-bottom: 5rem; padding-top: 2rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+
+            <div class="row" style="padding-top: 30px;">
+                <div class="col-4">
+
+                    <button type="button" class="btn_menu btn-lg text-white "
+                            style="padding: 20px 130px; "
+                            ng-click="OpenRoom()">
+                        ห้องพัก
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn_menu btn-lg text-white "
+                            style="padding: 20px 130px;"
+                            ng-click="OpenCheckIn()">
+                        แจ้งเข้า
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn_menu btn-lg text-white "
+                            style="padding: 20px 130px;"
+                            ng-click="OpenCheckOut()">
+                        แจ้งออก
+                    </button>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 30px;">
+                <div class="col-4">
+                    <button type="button" class="btn_menu btn-lg text-white "
+                            style="padding: 20px 130px;"
+                            ng-click="OpenBook()">
+                        การจอง
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn_menu btn-lg text-white "
+                            style="padding: 20px 106px; "
+                            ng-click="OpenBill()">
+                        คำนวณค่าเช่า
+                    </button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn_menu btn-lg text-white "
+                            style="padding: 20px 130px;"
+                            ng-click="OpenPayment()">
+                        การชำระ
+                    </button>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 30px; display: flex; align-items: center">
+                <div class="col-4">
+                    <button type="button" class="btn_menu btn-lg text-white "
+                            style="padding: 20px 107px;"
+                            ng-click="OpenAccounting()">
+                        ประเมิลรายได้
+                    </button>
+                </div>
+            </div>
+
+
+            </div>
+
+
+        </div>
+</div>
+
+@section Scripts{
+
+<link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+<script src="~/js/app/controllers/setupMenuController.js"></script>
+}

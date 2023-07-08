@@ -1,0 +1,525 @@
+﻿@{
+    ViewData["Title"] = "หน้าห้องพัก";
+}
+
+<div ng-controller="setupRoomController" ng-init="init()">
+
+    <div class="cardMenu ">
+        <div class="card-header " style="background-color: #2471A3; border-top-left-radius: 21px; border-top-right-radius: 21px;">
+            <div class="row_F" >
+                <div>
+                    <span class=" text-white font-weight-bold text-left">ห้องพัก</span>
+                    <span class="btn " ng-click="editRoomAll()"><i class="bi bi-pencil-fill text-warning"></i></span>
+
+                </div>
+                @*<div>
+                    <a class="text-white font-weight-bold text-left ">ชั้น </a>&nbsp;
+                    <button type="button" class="btn btn-pill btn-success text-right" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" ng-click="OpenModalFloor()">+</button>
+                </div>*@
+            </div>
+        </div>
+        <div class="card-body text-center" style="background-color: #40404014; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); ">
+            <div class="row_B">
+                <i class="bi bi-circle-fill" style="color: #1BC5BD"></i>&nbsp;
+                <span class="text-secondary">ว่าง</span>&nbsp;&nbsp;
+                <i class="bi bi-circle-fill" style="color: #3699FF"></i>&nbsp;
+                <span class="text-secondary">ไม่ว่าง</span>&nbsp;&nbsp;
+                <i class="bi bi-circle-fill" style="color: #FFA800"></i>&nbsp;
+                <span class="text-secondary">จอง</span>
+                <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                    <a class="text-secondary font-weight-bold text-left " style="margin-right: 10px">ชั้น </a>&nbsp;
+                    <button type="button" class="btn btn-pill btn-success text-right" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" ng-click="OpenModalFloor()">+</button>
+                </div>
+            </div>
+            <br />
+            <table>
+                <tr ng-repeat="floor in FloorList">
+                    <td style="padding-bottom: 1.25rem;">
+                        <div class="cardMenu">
+                            <div class="card-header " style="background-color: #ffe181; width: 82.6rem; ">
+                                <div class="row_F">
+                                    @*<span >{{$index+1}}</span>*@
+                                    <span class="btn badge-pill badge-warning text-white" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" ng-click="editFloor(floor.id)">ชั้น&nbsp;{{floor.name}}</span>
+                                    @*<div class="collapsible"><i class="bi bi-caret-down-fill"></i></div>*@
+                                    <span class="btn " ng-click="OpenModalEditRinF(floor.id);" ><i class="bi bi-pencil-fill text-danger"></i></span>
+
+                                </div>
+                            </div>
+                            <div id="cardRoom" ng-if="GetroomSort($index)">
+                                <div class="card-body " style="background-color: #f9fdffd6; width: 82.6rem; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; ">
+                                    <table>
+                                        <tr>
+                                            <td ng-repeat="r in listRoomS ">
+                                                <button type="button" id="RR{{r.id}}" ng-if="setBG(r.statuses.name, r.id)" class="btn btn-pill text-white" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" ng-show="{{r.floor}} == {{floor.id}}" ng-click="ShowAndEdit(r.id, $index + 1, r.floor)">
+                                                    {{r.name}}
+                                                </button>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-pill btn-bg-success text-white" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" ng-click="OpenModalRoom(floor.id)">
+                                                    +
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-- Modal Add Floor -->
+    <div class="modal fade" id="ModalFloor" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #5499C7">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">เพิ่มชั้น</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #AED6F1 ">
+                    <label>ชื่อชั้น</label>
+                    <input type="text" id="floor" class="form-control" placeholder="ชื่อชั้น" ng-model="floor.Name" />
+                    <div class="errmsg text-danger" id="errmsgFloor"></div>
+                </div>
+                <div class="modal-footer" style="background-color: #AED6F1 ">
+                    <button type="button" class="btn btn-primary" ng-click="SaveFloor(floor)">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="resect()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Floor -->
+    <div class="modal fade" id="ModalFloorEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #5499C7">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">แก้ไขชั้น</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #AED6F1 ">
+                    <label>ชื่อชั้น</label>
+                    <input type="text" id="efloor" class="form-control" placeholder="ชื่อชั้น" ng-model="editfloor.name" />
+                    <div class="errmsg text-danger" id="errmsgEFloor"></div>
+                </div>
+                <div class="modal-footer" style="background-color: #AED6F1 ">
+                    <button type="button" class="btn btn-primary" ng-click="SaveEditFloor(editfloor)">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="resect()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal add Room -->
+    <div class="modal fade" id="ModalRoom" tabindex="-1" role="dialog" data-target="MRoom" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #27AE60 ">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">เพิ่มห้อง</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color:  #7DCEA0 ">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="font-weight-bold">ชั้น</span>
+                            <input type="text" class="form-control" ng-model="room.Floor" disabled />
+
+                        </div>
+                        <div class="col-6">
+                            <span class="font-weight-bold">ชื่อห้อง</span>
+                            <input type="text" id="" class="form-control" placeholder="ชื่อห้อง" ng-model="room.Name" />
+                            <div class="errmsg text-danger" id="errmsgRName"></div>
+                        </div>
+                        <div class="col-4">
+                            <span class="font-weight-bold">สถานะ</span>
+                            <select class="form-control" id="status" disabled>
+                                <option ng-repeat="s in StatusList " ng-selected="s.name == 'ว่าง'" value="{{s.id}}">{{s.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">เฟอร์นิเจอร์/เครื่องใช้ไฟฟ้า</span>
+                            <input type="text" id="" class="form-control" placeholder="เฟอร์นิเจอร์/เครื่องใช้ไฟฟ้า" ng-model="room.Facilities" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">ราคาห้อง (บาท)</span>
+                            <input type="number" id="roomRate" class="form-control" placeholder="ราคาห้อง" min="1000" ng-model="room.RoomRate" />
+                            <div class="errmsg text-danger" id="errmsgRoomRate"></div>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าน้ำเหมาจ่าย (บาท/คน)</span>
+                            <input type="number" id="" class="form-control" placeholder="ค่าน้ำ" min="50" ng-model="room.WaterRate" />
+                            <div class="errmsg text-danger" id="errmsgWaterRate"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าไฟ (บาท/หน่วย)</span>
+                            <input type="number" id="" class="form-control" placeholder="ค่าไฟ" min="1" ng-model="room.ElectricRate" />
+                            <div class="errmsg text-danger" id="errmsgElectricRate"></div>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าประกันห้อง (บาท)</span>
+                            <input type="number" id="" class="form-control" placeholder="ค่าประกันห้อง" min="1000" ng-model="room.Deposit" />
+                            <div class="errmsg text-danger" id="errmsgDeposit"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าห้องล่วงหน้า (บาท)</span>
+                            <input type="number" id="rentInAdvance" class="form-control" placeholder="ค่าห้องล่วงหน้า" disabled ng-model="room.RentInAdvance" />
+                            <div class="errmsg text-danger" id="errmsgRentInAdvance"></div>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">สัญญาขั้นต่ำ (เดือน)</span>
+                            <input type="number" id="" class="form-control" placeholder="สัญญาขั้นต่ำ" min="1" ng-model="room.Lease" />
+                            <div class="errmsg text-danger" id="errmsgLease"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="background-color: #27AE60 ">
+                    <button type="submit" class="btn btn-primary" ng-click="SaveRoom(room)">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="resect()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Room -->
+    <div class="modal fade" id="ModalEditRoom" tabindex="-1" role="dialog" data-target="MRoom" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #27AE60 ">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">ห้องพัก</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="dataRoom" style="background-color:  #7DCEA0 ">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="font-weight-bold">ชั้น</span>
+                            <input type="text" class="form-control" ng-model="Eroom.floors.name" disabled />
+
+                        </div>
+                        <div class="col-6">
+                            <span class="font-weight-bold">ชื่อห้อง</span>
+                            <input type="text" id="" class="form-control" placeholder="ชื่อห้อง" ng-model="Eroom.name" />
+                            <div class="errmsg text-danger" id="errmsgERName"></div>
+                        </div>
+                        <div class="col-4">
+                            <span class="font-weight-bold">สถานะ</span>
+                            <select class="form-control" id="Estatus" disabled>
+                                <option selected="selected">{{Eroom.statuses.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">เฟอร์นิเจอร์/เครื่องใช้ไฟฟ้า</span>
+                            <input type="text" id="" class="form-control" placeholder="เฟอร์นิเจอร์/เครื่องใช้ไฟฟ้า" ng-model="Eroom.facilities" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">ราคาห้อง (บาท)</span>
+                            <input type="number" id="roomRate" class="form-control" placeholder="ราคาห้อง" min="1000" ng-model="Eroom.roomRate" />
+                            <div class="errmsg text-danger" id="errmsgERoomRate"></div>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าน้ำเหมาจ่าย (บาท/คน)</span>
+                            <input type="number" id="" class="form-control" placeholder="ค่าน้ำ" min="50" ng-model="Eroom.waterRate" />
+                            <div class="errmsg text-danger" id="errmsgEWaterRate"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าไฟ (บาท/หน่วย)</span>
+                            <input type="number" id="" class="form-control" placeholder="ค่าไฟ" min="1" ng-model="Eroom.electricRate" />
+                            <div class="errmsg text-danger" id="errmsgEElectricRate"></div>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าประกันห้อง (บาท)</span>
+                            <input type="number" id="" class="form-control" placeholder="ค่าประกันห้อง" min="1000" ng-model="Eroom.deposit" />
+                            <div class="errmsg text-danger" id="errmsgEDeposit"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าห้องล่วงหน้า (บาท)</span>
+                            <input type="number" id="rentInAdvance" class="form-control" placeholder="ค่าห้องล่วงหน้า" disabled ng-model="Eroom.rentInAdvance" />
+                            <div class="errmsg text-danger" id="errmsgERentInAdvance"></div>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">สัญญาขั้นต่ำ (เดือน)</span>
+                            <input type="number" id="" class="form-control" placeholder="สัญญาขั้นต่ำ" min="1" ng-model="Eroom.lease" />
+                            <div class="errmsg text-danger" id="errmsgELease"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+                
+                <div class="modal-body" id="dataTenant" style="background-color: #7DCEA0; border-top: 1px solid #dee2e6;" >
+                    <div class="row">
+                        <div class="col-3">
+                            <span class="font-weight-bold">รหัสผู้เช่า</span>
+                            <input type="text" class="form-control" ng-model="tenant.tn" disabled />
+
+                        </div>
+                        <div class="col-2">
+                            <span class="font-weight-bold">เพศ</span>
+                            <input type="text" class="form-control" ng-model="tenant.gender" disabled />
+
+                        </div>
+                        <div class="col-4">
+                            <span class="font-weight-bold">ชื่อผู้เช่า</span>
+                            <input type="text" id="" class="form-control" ng-model="tenant.name" disabled />
+                        </div>
+                        <div class="col-3">
+                            <span class="font-weight-bold">เบอร์โทรติดต่อ</span>
+                            <input class="form-control" placeholder="หมายเลขโทรศัพท์" id="phone" min="10" max="10" ng-model="tenant.phone" />
+                            <div class="errmsg text-danger" id="errmsgEPhone"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="font-weight-bold">อายุ (ปี)</span>
+                            <input class="form-control" placeholder="อายุ" ng-model="tenant.age" disabled />
+                        </div>
+                        <div class="col-10">
+                            <span class="font-weight-bold">ที่อยู่</span>
+                            <input class="form-control" placeholder="ที่อยู่" ng-model="tenant.address" disabled/>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">จำนวนผู้เข้าพัก (คน)</span>
+                            <input class="form-control" placeholder="จำนวนผู้เข้าพัก" type="number" min="1" ng-model="tenant.total"  />
+                            <div class="errmsg text-danger" id="errmsgETotal"></div>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าน้ำ (บาท/ห้อง)</span>
+                            <input class="form-control" placeholder="ค่าน้ำ" type="number" min="1" ng-model="tenant.waterBill" disabled/>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">วันที่เข้าอยู่</span>
+                            <input class="form-control" id="dateCI"  ng-model="tenant.dateCI" disabled/>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="modal-footer" style="background-color: #27AE60 ">
+                    <button type="submit" class="btn btn-primary" ng-click="SaveEditRoom(Eroom , tenant)">บันทึก</button>
+                    <button type="submit" class="btn btn-danger" id="delRoom" ng-click="DelRoom(Eroom)">ลบ</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal" ng-click="resect()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Run Add Room-->
+    <div class="modal fade" id="ModalRunRoom" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #AED6F1">
+                    <h3>ต้องการใช้ข้อมูลเดิมหรือไม่</h3>
+                </div>
+                <div class="modal-body" style="background-color: #AED6F1 ">
+
+                    <div class="row" style="padding: 20px">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="checkRunroom" id="yes" value="yes" ng-click="checkRunRoom('yes')">
+                            <label class="form-check-label" for="yes">
+                                ใช้
+                            </label>
+                        </div>
+                        &nbsp; &nbsp;
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="checkRunroom" id="no" value="no" ng-click="checkRunRoom('no')">
+                            <label class="form-check-label" for="no">
+                                ไม่ใช้
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="formnumroom">
+                        <label>จำนวนห้องที่ต้องการเพิ่ม</label>
+                        <input class="form-control" type="number" placeholder="จำนวนห้อง" ng-model="numroom" />
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: #AED6F1 ">
+                    <button type="button" class="btn btn-primary" ng-click="runRoom(numroom)">ตกลง</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="resect()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Room All -->
+    <div class="modal fade" id="ModalEditRoomAll" tabindex="-1" role="dialog" data-target="MRoom" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #27AE60 ">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">แก้ไขห้องพักทั้งหมด</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color:  #7DCEA0 ">
+
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าน้ำเหมาจ่าย (บาท/คน)</span>
+                            <input type="number" id="" class="form-control" placeholder="ค่าน้ำ" min="50" ng-model="EAroom.waterRate" />
+                            <div class="errmsg text-danger" id="errmsgEAWaterRate"></div>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-bold">ค่าไฟ (บาท/หน่วย)</span>
+                            <input type="number" id="" class="form-control" placeholder="ค่าไฟ" min="1" ng-model="EAroom.electricRate" />
+                            <div class="errmsg text-danger" id="errmsgEAElectricRate"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-6">
+                            <span class="font-weight-bold">สัญญาขั้นต่ำ (เดือน)</span>
+                            <input type="number" id="" class="form-control" placeholder="สัญญาขั้นต่ำ" min="1" ng-model="EAroom.lease" />
+                            <div class="errmsg text-danger" id="errmsgEALease"></div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+                <div class="modal-footer" style="background-color: #27AE60 ">
+                    <button type="submit" class="btn btn-primary" ng-click="SaveEditRoomAll(EAroom)">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="resect()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Edit Room in Floor -->
+    <div class="modal fade" id="ModalEditRinF" tabindex="-1" role="dialog" data-target="MRoom" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #27AE60 ">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">แก้ไขห้องพัก</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color:  #7DCEA0 ">
+
+                    <div class="row">
+                        <div class="col">
+                            <input type="checkbox" id="facilities" name="facilities" value="facilities" />
+                            <span for="facilities" class="font-weight-bold">เพิ่มเติมเฟอร์นิเจอร์/เครื่องใช้ไฟฟ้า</span>
+                            <input type="text" id="IPfacilities" class="form-control" placeholder="เฟอร์นิเจอร์/เครื่องใช้ไฟฟ้า" ng-model="eRIF.facilities" />
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <input type="checkbox" id="rr" name="rr" value="rr" />
+                            <span for="rr" class="font-weight-bold">ปรับราคาห้อง (บาท)</span>
+                            <input type="number" id="IPrr" class="form-control" placeholder="ราคาห้อง" min="1000" ng-model="eRIF.roomRate" />
+                            <div class="errmsg text-danger" id="errmsgRIFRoomRate"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <input type="checkbox" id="deposit" name="deposit" value="deposit" />
+                            <span for="deposit" class="font-weight-bold">ปรับค่าประกันห้อง (บาท)</span>
+                            <input type="number" id="IPdeposit" class="form-control" placeholder="ค่าประกันห้อง" min="1000" ng-model="eRIF.deposit" />
+                            <div class="errmsg text-danger" id="errmsgRIFDeposit"></div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col">
+                            <span class="font-weight-bold">ห้องที่ต้องการแก้ไขข้อมูล</span>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <input type="checkbox" id="All" name="All" value="all" ng-click="checkAll()" />
+                            <label for="All">ทั้งหมด</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card ">
+                                <div class="scroll " style="max-height: 100px; overflow-y: auto; ">
+
+                                    <ul class="ulR">
+                                        <li ng-repeat="r in listRoomSE">
+                                            <input type="checkbox" name="{{r.id}}" id="R{{$index}}" />
+                                            <label for="R{{r.id}}">{{r.name}}</label><br>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="errmsg text-danger" id="errmsgCheckRoom"></div>
+
+
+                </div>
+                <div class="modal-footer" style="background-color: #27AE60 ">
+                    <button type="submit" class="btn btn-primary" ng-click="SaveEditRIF(eRIF)">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="resect()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        var random = Math.random();
+    </script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+    <script src="~/js/app/controllers/setupRoomController.js"></script>
+
+
+}
+

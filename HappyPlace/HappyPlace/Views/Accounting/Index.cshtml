@@ -1,0 +1,146 @@
+﻿@{
+    ViewData["Title"] = "หน้าประเมิลรายได้";
+}
+
+<div ng-controller="setupAccountingController" ng-init="init()">
+    <div class=" cardMenu">
+        <div class="card-header " style="background-color: #2471A3; border-top-left-radius: 21px; border-top-right-radius: 21px;">
+
+            <span class=" text-white font-weight-bold">ประเมิลรายได้รายเดือน </span>
+        </div>
+        <div class="card-body " style="background-color: #40404014; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+            <div class="row">
+                <div class="col-6">
+                    <div class="row " style="align-items: center">
+
+                        <div class="col-1">
+                            <span class="font-weight-bold">เดือน</span>
+                        </div>
+                        <div class="col-3">
+                            <select class="form-control" id="selectMonth" ng-model="month">
+                                <option ng-repeat="m in monthList" id="{{m.name}}" value="{{m.id}}">{{m.name}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-1" style="margin-right: -22px;">
+                            <span class="font-weight-bold">ปี</span>
+                        </div>
+                        <div class="col-3">
+                            <input id="yearpk" class="date-own form-control" ng-model="year">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <div class="row text-center" style="margin: 4px; display: flex; align-items: center; justify-content: center; background-color: aquamarine; border-radius: 10px;">
+                <div class="col-8" style="margin: 15px;">
+                    <div class="row" style="display: flex; justify-content: space-evenly; align-items: center; ">
+                        <div class="col-3">
+                            <div class="card" style="background-color: #f0fffb8f; border-radius: 10px; box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
+                                <span class="font-weight-bold" style="margin-top: 10px; font-size: 12px">รายรับทั้งหมด (บาท) :</span>
+                                <span class="font-weight-bold text-success" style="margin-bottom: 10px; font-size: 16px" id="income">0</span>
+
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="card" style="background-color: #f0fffb8f; border-radius: 10px; box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
+                                <span class="font-weight-bold" style="margin: 5px; font-size: 12px"><i class="fas fa-minus" style="color: darkgoldenrod"></i></span>
+
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card" style="background-color: #f0fffb8f; border-radius: 10px; box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
+                                <span class="font-weight-bold" style="margin-top: 10px; font-size: 12px">รายจ่ายทั้งหมด (บาท) : </span>
+                                <span class="font-weight-bold text-primary" style="margin-bottom: 10px; font-size: 16px" id="expenses">0</span>
+
+                            </div>
+                        </div>
+                        <div class="col-1">
+                            <div class="card" style="background-color: #f0fffb8f; border-radius: 10px; box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
+                                <span class="font-weight-bold" style="margin: 5px; font-size: 12px"><i class="fas fa-equals" style="color: darkgoldenrod"></i></span>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card" style="background-color: #f0fffb8f; border-radius: 10px; box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;">
+                                <span class="font-weight-bold" style="margin-top: 20px; font-size: 12px">รายได้สุทธิ (บาท) : </span>
+                                <span class="font-weight-bold " style="margin-bottom: 20px; font-size: 20px; color: brown;" id="netIncome">0</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col">
+                    <span class="font-weight-bold" >รายละเอียดรายจ่ายประจำเดือน : </span><span id="dmonth" style="color: firebrick;" class="font-weight-bold"></span>
+                </div>
+                <div class="col" style="display: flex; justify-content: flex-end; align-items: center;">
+                    <button type="button" class="btn btn-pill btn-success" style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" ng-click="saveDetail();"><i class="fas fa-save" style="color: white"></i></button>
+                </div>
+            </div>
+           
+            
+            <table class="table table-striped boderD" id="table">
+                <thead class="text-center" style="background-color: #557da1; color: white;">
+                    <tr>
+                        <th>ลำดับ</th>
+                        <th>รายการ</th>
+                        <th>จำนวนเงิน (บาท)</th>
+                        <th>
+                            <span type="button" ng-click="AddOnetd();"><i class="bi bi-plus-circle-fill" style="color: #12cb3a; font-size: 1.45rem;"></i></span>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody style="color: white; background-color: #d0c9ff;"  id="tDetail">
+                    @*<tr id="fristRow" ng-show="listDetail == ''">
+                        <td><spen class="text-dark ">{{$index + 1}}</spen></td>
+                        <td><input class="td-input0" type="text" /></td>
+                        <td><input class="td-input1 text-center" type="text" id="c21" onblur="setTotal()" /></td>
+                        <td>
+                            <span type="button" class="td-del" ng-click="remove($index)"><i class="bi bi-dash-circle-fill" style="color: #b16060; font-size: 1.45rem;"></i></span>
+                        </td>
+                    </tr>*@
+                    <tr ng-repeat="d in listDetail">
+                        <td><spen class="text-dark ">{{$index + 1}}</spen></td>
+                        <td><input class="td-input0" type="text" style="width: 793px;" ng-model="d.detail" /></td>
+                        <td>
+                            <input class="td-input1 text-center" style="width: 180px" type="text" id="c21" onblur="setTotal()" ng-model="d.amount" />
+                        </td>
+                        <td>
+                            <span type="button" class="td-del " ng-click="remove($index)"><i class="bi bi-dash-circle-fill" style="color: #b16060; font-size: 1.45rem;"></i></span>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <tfoot class="text-center" style="background-color: #557da1; color: white;">
+                    <tr>
+                        <th></th>
+                        <th>รวม</th>
+                        <th id="total" @*ng-click="setTotal();"*@></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        var random = Math.random();
+    </script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+
+    <script src="~/js/app/controllers/setupAccountingController.js"></script>
+
+
+
+}

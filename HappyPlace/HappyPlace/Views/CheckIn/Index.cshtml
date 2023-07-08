@@ -1,0 +1,180 @@
+﻿@{
+    ViewData["Title"] = "หน้าแจ้งเข้า";
+}
+
+<div ng-controller="setupCheckInController" ng-init="init()">
+    <div class="cardMenu">
+        <div class="card-header " style="background-color: #2471A3; border-top-left-radius: 21px; border-top-right-radius: 21px;">
+            <span class=" text-white font-weight-bold">แจ้งเข้า </span>
+        </div>
+        <div class="card-body " style="background-color: #40404014; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+            <div class="cardMenu " style="background-color: #918d8d42; padding: 30px">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="font-weight-bold">ข้อมูลห้องพัก</h3>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <span class="font-weight-bold">ชั้น</span>
+                        <select class="form-control" id="floor">
+                            <option selected>---- เลือกชั้น ----</option>
+                            <option ng-repeat="f in FloorList" value="{{f.id}}">{{f.name}}</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <span class="font-weight-bold">ห้อง</span>
+                        <select class="form-control" id="room">
+                            <option>---- เลือกห้อง ----</option>
+                            <option ng-repeat="r in listRoom" value="{{r.id}}">{{r.name}}</option>
+                        </select>
+                        <div class="errmsg text-danger" id="errmsgRoom"></div>
+                    </div>
+                    <div class="col">
+                        <span class="font-weight-bold">สถานะ</span>
+                        <select class="form-control" id="status"  disabled>
+                            <option>---- สถานะ ----</option>
+                            <option ng-repeat="r in listRoom" value="{{r.statuses.name}}">{{r.statuses.name}}</option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <span class="font-weight-bold">เฟอร์นิเจอร์/เครื่องใช้ไฟฟ้า</span>
+                        <input type="text" id="facilities" class="form-control" placeholder="เฟอร์นิเจอร์/เครื่องใช้ไฟฟ้า" ng-model="dataRoom.facilities" disabled />
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <span class="font-weight-bold">ราคาห้อง (บาท)</span>
+                        <input type="number" id="roomRate" class="form-control" placeholder="ราคาห้อง" min="1000" ng-model="dataRoom.roomRate" disabled />
+                        <div class="errmsg text-danger" id="errmsgRoomRate"></div>
+                    </div>
+                    <div class="col">
+                        <span class="font-weight-bold">ค่าน้ำเหมาจ่าย (บาท/คน)</span>
+                        <input type="number" id="waterRate" class="form-control" placeholder="ค่าน้ำ" min="50" ng-model="dataRoom.waterRate" disabled />
+                        <div class="errmsg text-danger" id="errmsgWaterRate"></div>
+                    </div>
+                    <div class="col">
+                        <span class="font-weight-bold">ค่าไฟ (บาท/หน่วย)</span>
+                        <input type="number" id="electricRate" class="form-control" placeholder="ค่าไฟ" min="1" ng-model="dataRoom.electricRate" disabled />
+                        <div class="errmsg text-danger" id="errmsgElectricRate"></div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <span class="font-weight-bold">ค่าประกันห้อง (บาท)</span>
+                        <input type="number" id="deposit" class="form-control" placeholder="ค่าประกันห้อง" min="1000" ng-model="dataRoom.deposit" disabled />
+                        <div class="errmsg text-danger" id="errmsgDeposit"></div>
+                    </div>
+                    <div class="col">
+                        <span class="font-weight-bold">ค่าห้องล่วงหน้า (บาท)</span>
+                        <input type="number" id="rentInAdvance" class="form-control" placeholder="ค่าห้องล่วงหน้า" disabled ng-model="dataRoom.rentInAdvance" />
+                        <div class="errmsg text-danger" id="errmsgRentInAdvance"></div>
+                    </div>
+                    <div class="col">
+                        <span class="font-weight-bold">สัญญาขั้นต่ำ (เดือน)</span>
+                        <input type="number" id="lease" class="form-control" placeholder="สัญญาขั้นต่ำ" min="1" ng-model="dataRoom.lease" disabled />
+                        <div class="errmsg text-danger" id="errmsgLease"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="cardMenu " style="background-color: #918d8d42; padding: 30px">
+                <div class="row">
+                    <div class="col">
+                        <h3 class="font-weight-bold">ข้อมูลผู้เช่า</h3>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-2">
+                        <span class="font-weight-bold">รหัสผู้เช่า</span>
+                        <input class="form-control" id="tn" placeholder="รหัสผู้เช่า" ng-model="tenant.tn" disabled/>
+                    </div>
+                    <div class="col-2">
+                        <span class="font-weight-bold">เพศ</span>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="boy" value="boy" ng-click="checkGender('ชาย')" />
+                            <label class="form-check-label" for="boy">ชาย</label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="form-check-input" type="radio" name="gender" id="girl" value="girl" ng-click="checkGender('หญิง')" />
+                            <label class="form-check-label" for="girl">หญิง</label>
+                        </div>
+                        <div class="errmsg text-danger" id="errmsgGender"></div>
+
+                    </div>
+                    <div class="col-5">
+                        <span class="font-weight-bold">ชื่อผู้เช่า</span>
+                        <input class="form-control" placeholder="ชื่อ-นามสกุล" ng-model="tenant.name" />
+                        <div class="errmsg text-danger" id="errmsgName"></div>
+                    </div>
+                    <div class="col-3">
+                        <span class="font-weight-bold">เบอร์โทรติดต่อ</span>
+                        <input class="form-control" placeholder="หมายเลขโทรศัพท์" id="phone" min="10" max="10" ng-model="tenant.phone" />
+                        <div class="errmsg text-danger" id="errmsgPhone"></div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-2">
+                        <span class="font-weight-bold">อายุ (ปี)</span>
+                        <input class="form-control" id="age" type="number" min="20" placeholder="อายุ" ng-model="tenant.age" />
+                        <div class="errmsg text-danger" id="errmsgAge"></div>
+                    </div>
+                    <div class="col-10">
+                        <span class="font-weight-bold">ที่อยู่</span>
+                        <input class="form-control" placeholder="ที่อยู่" ng-model="tenant.address" />
+                        <div class="errmsg text-danger" id="errmsgAddress"></div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <span class="font-weight-bold">จำนวนผู้เข้าพัก (คน)</span>
+                        <input class="form-control" placeholder="จำนวนผู้เข้าพัก"  type="number" min="1" ng-model="tenant.total" />
+                        <div class="errmsg text-danger" id="errmsgTotal"></div>
+                    </div>
+                    <div class="col">
+                        <span class="font-weight-bold">มิเตอร์ไฟแรกเข้า (หน่วย)</span>
+                        <input class="form-control" type="number" placeholder="มิเตอร์ไฟ" ng-model="tenant.emeterStart" />
+                        <div class="errmsg text-danger" id="errmsgEmeter"></div>
+                    </div>
+                    <div class="col">
+                        <span class="font-weight-bold">วันที่เข้าอยู่</span>
+                        <input class="form-control" id="dateCI" type="date" ng-model="dateCI1" />
+                       
+                    </div>
+                </div>
+                <br /><br />
+                <div class="row text-center">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary" ng-click="SaveTenant(tenant)">บันทึก</button>
+
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="reset()">ยกเลิก</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        var random = Math.random();
+    </script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+
+    <script src="~/js/app/controllers/setupCheckInController.js"></script>
+
+
+}

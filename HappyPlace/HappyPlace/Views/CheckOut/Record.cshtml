@@ -1,0 +1,143 @@
+﻿@{
+    ViewData["Title"] = "หน้าประวัติการเช่า";
+}
+
+<div ng-controller="setupRecordController" ng-init="init()">
+    <div class=" cardMenu">
+        <div class="card-header " style="background-color: #2471A3; border-top-left-radius: 21px; border-top-right-radius: 21px;">
+            <span type="button" ng-click="backtoIndex();">
+                <i class="bi bi-arrow-left-circle-fill" style="color: #ffffff"></i>
+            </span>
+            &nbsp;
+            <span class=" text-white font-weight-bold">ประวัติการเช่าหอพัก </span>
+        </div>
+        <div class="card-body " style="background-color: #40404014; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+            <div class="row" style="display: flex; justify-content: flex-end;">
+                <div class="col-3">
+                    <span class="font-weight-bold">ค้นหา</span>
+                    <div class="input-group">
+                        <input class="form-control" style="border: 2px solid; border-color: aliceblue; border-right: 0px solid;" type="text" placeholder="กรอกชื่อผู้เช่า....." ng-model="textSearch.name" />
+                        <button class="btn" style="background-color: white; display: flex; align-items: center; border-bottom-left-radius: 0px; border-top-left-radius: 0px;">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <table class="table table-striped text-center table-bordered fixed_header">
+                <thead style="background-color: #557da1; color: white;">
+                    <tr>
+                        <th style="width: 55px;">ลำดับ</th>
+                        <th style="width: 55px;">ชั้น</th>
+                        <th style="width: 70px;">ห้อง</th>
+                        <th style="width: 100px;">รหัส</th>
+                        <th style="width: 150px;">ผู้เช่า</th>
+                        <th style="width: 250px;">ที่อยู่</th>
+                        <th style="width: 120px;">เบอร์ติดต่อ</th>
+                        <th style="width: 120px;">วันที่เข้าอยู่</th>
+                        <th style="width: 120px;">วันที่ออก</th>
+                        <th style="width: 16.50px; padding: 0px;"></th>
+                    </tr>
+                </thead>
+                <tbody class="record" style=" background-color: #cfe9ff;">
+                    <tr ng-repeat="r in RecordList | filter:  textSearch">
+                        <td style="width: 55px;">{{$index + 1}}</td>
+                        <td style="width: 55px;">{{r.rooms.floors.name}}</td>
+                        <td style="width: 70px;">{{r.rooms.name}}</td>
+                        <td style="width: 100px;">{{r.tn}}</td>
+                        <td style="width: 150px;" class="text-left">{{r.name}}</td>
+                        <td style="width: 270px;" class="text-left">{{r.address}}</td>
+                        <td style="width: 120px;">{{r.phone}}</td>
+                        <td style="width: 120px;">{{r.dateCI}}</td>
+                        <td style="width: 120px;">
+                            {{r.dateOut}}
+                            <span type="button" ng-click="OpenModalDetail(r.id, $index);"><i class="fas fa-info-circle" style="color: #368d27c9 "></i>@*<i class="bi bi-info-circle-fill" style="color: #ff383870 "></i>*@</span>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="nodata" ng-show="RecordList == ''" style="height: 100px; margin-top: -10px; display: flex; align-items: center; justify-content: space-around; background-color: #f0f8ff85;">
+                <h4>ไม่มีรายการแจ้งออก</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Show dateail  -->
+    <div class="modalnotP modal fade" id="ModalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #52b1a2">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">รายละเอียดการหักเงินประกัน</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #cdcdcd ">
+                    <div class="row">
+                        <div class="col-6">
+                            <label>เงินประกัน (บาท)</label>
+                            <input class="form-control" style="width: 166px; height: 29px;" ng-model="deposit" disabled />
+                        </div>
+
+                    </div>
+                    <br />
+                    <table class="table table-striped boderD" id="table">
+                        <thead class="text-center" style="background-color: #8aa0b5; color: white; ">
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>รายการ</th>
+                                <th>จำนวนเงิน (บาท)</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody style="color: white;" id="tDetail;">
+                            <tr id="fristRow" ng-show="listDetail == ''">
+                                    <td><spen class="text-dark "></spen></td>
+                                    <td><input class="td-input0" type="text" disabled/>ไม่มีข้อมูล</td>
+                                    <td><input class="td-input1 text-center" type="text" id="c21" disabled/></td>
+                                </tr>
+                            <tr ng-repeat="d in listDetail">
+                                <td><spen class="text-dark ">{{$index + 1}}</spen></td>
+                                <td><input class="td-input0" type="text" ng-model="d.detail" disabled/></td>
+                                <td>
+                                    <input class="td-input1 text-center" type="text" id="c21"  ng-model="d.amount" disabled />
+                                </td>
+                                
+                            </tr>
+
+                        </tbody>
+                        <tfoot class="text-center" style="background-color: #8aa0b5; color: white; ">
+                            <tr>
+                                <th></th>
+                                <th>รวม</th>
+                                <th id="total" @*ng-click="setTotal();"*@></th>
+                                
+                            </tr>
+                        </tfoot>
+
+                    </table>
+
+                </div>
+                <div class="modal-footer" style="background-color: #52b1a2 ">
+                    
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="back()">ปิด</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        var random = Math.random();
+    </script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+
+    <script src="~/js/app/controllers/setupRecordController.js"></script>
+
+
+
+}

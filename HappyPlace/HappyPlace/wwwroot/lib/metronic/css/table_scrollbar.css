@@ -1,0 +1,238 @@
+﻿/*a {
+    margin: 0 10px;
+}*/
+.button-a {
+    margin: 5px 10px;
+}
+
+table {
+    /*border-collapse: collapse;*/
+    width: 100%;
+    display: block;
+    overflow-x: overlay;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.table {
+    margin: 0;
+}
+
+    .table td {
+        vertical-align: top;
+        font-size: 14px;
+        width: 155px;
+        min-width: 155px;
+        max-width: 155px;
+    }
+
+    .table thead th {
+        width: 155px;
+        min-width: 155px;
+        font-size: 14px;
+    }
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #ffffff;
+}
+
+.table-striped tbody tr:hover:nth-of-type(odd) {
+    background-color: #ededed;
+}
+
+.table-striped tbody tr:hover:nth-of-type(even) {
+    background-color: #ededed;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: #fafcff;
+}
+
+thead {
+   /* display: block;*/
+    table-layout: fixed;
+    min-width: 1200px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-color: #0094ff !important;
+}
+
+tbody {
+    display: block;
+    table-layout: fixed;
+    margin-bottom: 0 !important;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    height: 500px;
+    width: 100%;
+    min-width: 1225px;
+}
+
+
+    tbody td {
+        border: 2px solid #ebf0ff40;
+        /*border-radius: 12px 12px;*/
+        height: 25px;
+        /*        border: 2px solid #ffffff00;*/
+        overflow: auto;
+        max-width: 100%;
+        max-height: 20px;
+    }
+
+    tbody th {
+        font-size: 14px;
+    }
+
+th {
+    border: 2px solid white;
+    font-size: 14px;
+}
+
+td ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
+
+
+
+tbody td ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    make scrollbar transparent
+}
+
+/*#tbodyDraft::-webkit-scrollbar-track {*/
+/*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+/*background-color: white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#tbodyDraft::-webkit-scrollbar {*/
+/*display:none;*/
+/*width: 8px;*/ /* Remove scrollbar space */
+/*background: transparent;*/ /* Optional: just make scrollbar invisible */
+/*}
+
+#tbodyDraft:hover::-webkit-scrollbar {
+    display: block;
+    transition: background-color 0.5s;
+}
+
+#tbodyDraft::-webkit-scrollbar-thumb {
+    border-radius: 10px;*/
+/*    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122,153,217)), color-stop(0.72, rgb(73,125,189)), color-stop(0.86, rgb(28,58,148)));
+*/
+
+/*background-color: mediumaquamarine;
+}
+
+    #tbodyDraft::-webkit-scrollbar-thumb:vertical:hover {
+        background: rgb(28,58,148);
+        transition: background-color 0.5s;
+    }
+
+    #tbodyDraft::-webkit-scrollbar-thumb:horizontal:active,
+    #tbodyDraft::-webkit-scrollbar-thumb:vertical:active {
+        background: rgb(12 29 77);
+        transition: background-color 0.5s;
+    }*/
+/*--------------------------------------------------------------------------------------------------*/
+
+.section {
+    max-height: 250px;
+    padding: 1rem;
+    overflow-y: auto;
+    direction: ltr;
+    scrollbar-color: #d4aa70 #e4e4e4;
+    scrollbar-width: thin;
+}
+
+
+/*#tbodyTrouble::-webkit-scrollbar {
+    width: 8px;
+}
+
+#tbodyTrouble::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 100px;
+}
+
+#tbodyTrouble::-webkit-scrollbar-thumb {
+    border-radius: 100px;
+    border: 1px solid transparent;
+    background-clip: content-box;
+    background-color: #0086c9;
+}
+    #tbodyTrouble::-webkit-scrollbar-thumb:vertical:hover {
+        width: 8px;
+        background: #001c9d;
+        transition: background-color 0.5s;
+    }*/
+
+/*--------------------------------Pagination---------------------------------------*/
+
+.custompagination {
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+    .custompagination ul {
+        margin: 0;
+    }
+
+.pagination li {
+    width: fit-content;
+    display: flex;
+    justify-content: space-around;
+}
+
+.custompagination a {
+    color: black;
+    float: left;
+    text-decoration: none;
+    background-color: white;
+    display: flex;
+    margin: 0 3px 0 3px;
+    width: 42px;
+    height: 42px;
+    /*border: 2px solid #777;*/
+    border-radius: 100%;
+    transition: background-color .3s;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination a:hover:not(.active) {
+    background-color: #EEF5FF;
+}
+
+.pagination > .active > a {
+    background-color: #97c2ff;
+}
+
+.card-header {
+    background-color: #4c7dd1ab;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.card {
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.errmsg {
+    color: red;
+    font: inherit;
+    font-size: 12px;
+}
+
+.form-control.custom::placeholder {
+    color: black;
+}
+

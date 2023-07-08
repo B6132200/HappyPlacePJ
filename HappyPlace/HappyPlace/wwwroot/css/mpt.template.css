@@ -1,0 +1,142 @@
+﻿@import url('../lib/metronic/plugins/global/fonts/sarabun/sarabun.css');
+
+:root {
+    --mpt-color-blue: #0046AD !important;
+}
+
+.text-mpt-blue {
+    color: var(--mpt-color-blue);
+}
+
+.img-tdk {
+    width: 150px;
+}
+
+.img-tdk-mobile {
+    width: 100px;
+}
+
+body {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    color: #3F4254;
+    font-family: SarabunRegular, sans-serif;
+/*    font-family: sans-serif;
+*/    /*font-family: 'Sarabun', sans-serif;*/
+    font-size: 14px !important;
+}
+
+/*////////////////////////////*/
+.header-menu .menu-nav > .menu-item.menu-item-rel {
+    padding-left: 20px;
+    padding-right: 20px;
+    font-size: 16px;
+    height: 50px;
+}
+
+    .header-menu .menu-nav > .menu-item.menu-item-rel a {
+        color: white;
+        margin-right: 0.75rem;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .header-menu .menu-nav > .menu-item.menu-item-rel.active {
+        background-color: rgba(255, 255, 255, 0.5);
+    }
+
+        .header-menu .menu-nav > .menu-item.menu-item-rel.active a {
+            color: white;
+        }
+
+            .header-menu .menu-nav > .menu-item.menu-item-rel.active a .fa {
+                color: #dbe4ea;
+            }
+
+.header .header-top {
+    background-color: white !important;
+}
+
+
+
+@media (min-width: 992px) {
+    .header-fixed.header-bottom-enabled .header {
+        height: 118px;
+    }
+
+    .header-fixed.header-bottom-enabled .wrapper {
+        padding-top: 118px;
+    }
+
+    .header .header-bottom {
+        height: 48px;
+    }
+
+    .header-bottom {
+        background-color: var(--mpt-color-blue) !important;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .header-mobile {
+        background-color: white !important;
+    }
+
+        /*-------- herder mobile Toolbar -----*/
+        .header-mobile .btn i {
+            color: var(--mpt-color-blue);
+        }
+
+            .header-mobile .btn i:hover {
+                color: #3F4254;
+            }
+
+        .header-mobile .btn.active i,
+        .header-mobile .btn:focus i,
+        .header-mobile .btn:hover i,
+        .header-mobile .show .btn i {
+            color: #3F4254;
+        }
+
+        .header-mobile .burger-icon span::before, .header-mobile .burger-icon span::after {
+            background-color: var(--mpt-color-blue);
+        }
+
+        .header-mobile .burger-icon:hover span::before, .header-mobile .burger-icon:hover span::after {
+            background-color: #3F4254;
+        }
+
+        .header-mobile .burger-icon:hover span {
+            background-color: #3F4254;
+        }
+
+        .header-mobile .burger-icon span {
+            background-color: var(--mpt-color-blue);
+        }
+
+    /*-------- herder mobile left nav -----*/
+    .tab-content > .active {
+        background-color: var(--mpt-color-blue);
+    }
+
+    .header-menu-mobile {
+        background-color: var(--mpt-color-blue);
+    }
+
+    .header-menu .menu-nav > .menu-item.menu-item-rel a {
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .header-menu-mobile .menu-nav .menu-item {
+        background-color: var(--mpt-color-blue);
+    }
+
+    /*-------- herder mobile .topbar -----*/
+    .topbar {
+        background-color: white;
+    }
+}

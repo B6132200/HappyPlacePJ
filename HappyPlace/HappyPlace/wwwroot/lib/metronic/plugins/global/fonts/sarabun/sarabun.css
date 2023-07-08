@@ -1,0 +1,323 @@
+@font-face {
+    font-family: 'SarabunThinItalic';
+    src: url('./Sarabun-ThinItalic.eot');
+    src: url('./Sarabun-ThinItalic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ThinItalic.woff2') format('woff2'),
+         url('./Sarabun-ThinItalic.woff') format('woff'),
+         url('./Sarabun-ThinItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunExtraLightItalic';
+    src: url('./Sarabun-ExtraLightItalic.eot');
+    src: url('./Sarabun-ExtraLightItalic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ExtraLightItalic.woff2') format('woff2'),
+         url('./Sarabun-ExtraLightItalic.woff') format('woff'),
+         url('./Sarabun-ExtraLightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunLightItalic';
+    src: url('./Sarabun-LightItalic.eot');
+    src: url('./Sarabun-LightItalic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-LightItalic.woff2') format('woff2'),
+         url('./Sarabun-LightItalic.woff') format('woff'),
+         url('./Sarabun-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunItalic';
+    src: url('./Sarabun-Italic.eot');
+    src: url('./Sarabun-Italic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Italic.woff2') format('woff2'),
+         url('./Sarabun-Italic.woff') format('woff'),
+         url('./Sarabun-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunMediumItalic';
+    src: url('./Sarabun-MediumItalic.eot');
+    src: url('./Sarabun-MediumItalic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-MediumItalic.woff2') format('woff2'),
+         url('./Sarabun-MediumItalic.woff') format('woff'),
+         url('./Sarabun-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunSemiBoldItalic';
+    src: url('./Sarabun-SemiBoldItalic.eot');
+    src: url('./Sarabun-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-SemiBoldItalic.woff2') format('woff2'),
+         url('./Sarabun-SemiBoldItalic.woff') format('woff'),
+         url('./Sarabun-SemiBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunBoldItalic';
+    src: url('./Sarabun-BoldItalic.eot');
+    src: url('./Sarabun-BoldItalic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-BoldItalic.woff2') format('woff2'),
+         url('./Sarabun-BoldItalic.woff') format('woff'),
+         url('./Sarabun-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunExtraBoldItalic';
+    src: url('./Sarabun-ExtraBoldItalic.eot');
+    src: url('./Sarabun-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ExtraBoldItalic.woff2') format('woff2'),
+         url('./Sarabun-ExtraBoldItalic.woff') format('woff'),
+         url('./Sarabun-ExtraBoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunBlackItalic';
+    src: url('./Sarabun-BlackItalic.eot');
+    src: url('./Sarabun-BlackItalic.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-BlackItalic.woff2') format('woff2'),
+         url('./Sarabun-BlackItalic.woff') format('woff'),
+         url('./Sarabun-BlackItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunThin';
+    src: url('./Sarabun-Thin.eot');
+    src: url('./Sarabun-Thin.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Thin.woff2') format('woff2'),
+         url('./Sarabun-Thin.woff') format('woff'),
+         url('./Sarabun-Thin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunExtraLight';
+    src: url('./Sarabun-ExtraLight.eot');
+    src: url('./Sarabun-ExtraLight.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ExtraLight.woff2') format('woff2'),
+         url('./Sarabun-ExtraLight.woff') format('woff'),
+         url('./Sarabun-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunLight';
+    src: url('./Sarabun-Light.eot');
+    src: url('./Sarabun-Light.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Light.woff2') format('woff2'),
+         url('./Sarabun-Light.woff') format('woff'),
+         url('./Sarabun-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunRegular';
+    src: url('./Sarabun-Regular.eot');
+    src: url('./Sarabun-Regular.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Regular.woff2') format('woff2'),
+         url('./Sarabun-Regular.woff') format('woff'),
+         url('./Sarabun-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunMedium';
+    src: url('./Sarabun-Medium.eot');
+    src: url('./Sarabun-Medium.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Medium.woff2') format('woff2'),
+         url('./Sarabun-Medium.woff') format('woff'),
+         url('./Sarabun-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunSemiBold';
+    src: url('./Sarabun-SemiBold.eot');
+    src: url('./Sarabun-SemiBold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-SemiBold.woff2') format('woff2'),
+         url('./Sarabun-SemiBold.woff') format('woff'),
+         url('./Sarabun-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunBold';
+    src: url('./Sarabun-Bold.eot');
+    src: url('./Sarabun-Bold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Bold.woff2') format('woff2'),
+         url('./Sarabun-Bold.woff') format('woff'),
+         url('./Sarabun-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunExtraBold';
+    src: url('./Sarabun-ExtraBold.eot');
+    src: url('./Sarabun-ExtraBold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ExtraBold.woff2') format('woff2'),
+         url('./Sarabun-ExtraBold.woff') format('woff'),
+         url('./Sarabun-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunBlack';
+    src: url('./Sarabun-Black.eot');
+    src: url('./Sarabun-Black.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Black.woff2') format('woff2'),
+         url('./Sarabun-Black.woff') format('woff'),
+         url('./Sarabun-Black.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunThin';
+    src: url('./Sarabun-Thin.eot');
+    src: url('./Sarabun-Thin.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Thin.woff2') format('woff2'),
+         url('./Sarabun-Thin.woff') format('woff'),
+         url('./Sarabun-Thin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunExtraLight';
+    src: url('./Sarabun-ExtraLight.eot');
+    src: url('./Sarabun-ExtraLight.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ExtraLight.woff2') format('woff2'),
+         url('./Sarabun-ExtraLight.woff') format('woff'),
+         url('./Sarabun-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunLight';
+    src: url('./Sarabun-Light.eot');
+    src: url('./Sarabun-Light.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Light.woff2') format('woff2'),
+         url('./Sarabun-Light.woff') format('woff'),
+         url('./Sarabun-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunRegular';
+    src: url('./Sarabun-Regular.eot');
+    src: url('./Sarabun-Regular.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Regular.woff2') format('woff2'),
+         url('./Sarabun-Regular.woff') format('woff'),
+         url('./Sarabun-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunMedium';
+    src: url('./Sarabun-Medium.eot');
+    src: url('./Sarabun-Medium.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Medium.woff2') format('woff2'),
+         url('./Sarabun-Medium.woff') format('woff'),
+         url('./Sarabun-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunSemiBold';
+    src: url('./Sarabun-SemiBold.eot');
+    src: url('./Sarabun-SemiBold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-SemiBold.woff2') format('woff2'),
+         url('./Sarabun-SemiBold.woff') format('woff'),
+         url('./Sarabun-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunBold';
+    src: url('./Sarabun-Bold.eot');
+    src: url('./Sarabun-Bold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Bold.woff2') format('woff2'),
+         url('./Sarabun-Bold.woff') format('woff'),
+         url('./Sarabun-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunExtraBold';
+    src: url('./Sarabun-ExtraBold.eot');
+    src: url('./Sarabun-ExtraBold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ExtraBold.woff2') format('woff2'),
+         url('./Sarabun-ExtraBold.woff') format('woff'),
+         url('./Sarabun-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunBlack';
+    src: url('./Sarabun-Black.eot');
+    src: url('./Sarabun-Black.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Black.woff2') format('woff2'),
+         url('./Sarabun-Black.woff') format('woff'),
+         url('./Sarabun-Black.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunThin';
+    src: url('./Sarabun-Thin.eot');
+    src: url('./Sarabun-Thin.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Thin.woff2') format('woff2'),
+         url('./Sarabun-Thin.woff') format('woff'),
+         url('./Sarabun-Thin.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunExtraLight';
+    src: url('./Sarabun-ExtraLight.eot');
+    src: url('./Sarabun-ExtraLight.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ExtraLight.woff2') format('woff2'),
+         url('./Sarabun-ExtraLight.woff') format('woff'),
+         url('./Sarabun-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunLight';
+    src: url('./Sarabun-Light.eot');
+    src: url('./Sarabun-Light.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Light.woff2') format('woff2'),
+         url('./Sarabun-Light.woff') format('woff'),
+         url('./Sarabun-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunRegular';
+    src: url('./Sarabun-Regular.eot');
+    src: url('./Sarabun-Regular.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Regular.woff2') format('woff2'),
+         url('./Sarabun-Regular.woff') format('woff'),
+         url('./Sarabun-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunMedium';
+    src: url('./Sarabun-Medium.eot');
+    src: url('./Sarabun-Medium.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Medium.woff2') format('woff2'),
+         url('./Sarabun-Medium.woff') format('woff'),
+         url('./Sarabun-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunSemiBold';
+    src: url('./Sarabun-SemiBold.eot');
+    src: url('./Sarabun-SemiBold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-SemiBold.woff2') format('woff2'),
+         url('./Sarabun-SemiBold.woff') format('woff'),
+         url('./Sarabun-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunBold';
+    src: url('./Sarabun-Bold.eot');
+    src: url('./Sarabun-Bold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Bold.woff2') format('woff2'),
+         url('./Sarabun-Bold.woff') format('woff'),
+         url('./Sarabun-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunExtraBold';
+    src: url('./Sarabun-ExtraBold.eot');
+    src: url('./Sarabun-ExtraBold.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-ExtraBold.woff2') format('woff2'),
+         url('./Sarabun-ExtraBold.woff') format('woff'),
+         url('./Sarabun-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'SarabunBlack';
+    src: url('./Sarabun-Black.eot');
+    src: url('./Sarabun-Black.eot?#iefix') format('embedded-opentype'),
+         url('./Sarabun-Black.woff2') format('woff2'),
+         url('./Sarabun-Black.woff') format('woff'),
+         url('./Sarabun-Black.ttf') format('truetype');
+}

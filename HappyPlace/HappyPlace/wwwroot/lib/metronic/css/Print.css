@@ -1,0 +1,28 @@
+﻿@page {
+    size: A4;
+    margin: 20px;
+   /* margin-bottom: 120px;*/
+   
+}
+
+.table, figure {
+    page-break-inside: avoid;
+}
+
+.cardMenu {
+    display: none;
+}
+
+.modalnotP {
+    display: none;
+}
+
+@media print {
+    .print {
+        display: block;
+        /*page-break-inside: avoid;*/
+    }
+
+   
+}
+

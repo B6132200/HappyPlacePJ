@@ -1,0 +1,231 @@
+﻿@{
+    ViewData["Title"] = "หน้าแจ้งออก";
+}
+
+<div ng-controller="setupCheckOutController" ng-init="init()">
+    <div class=" cardMenu">
+        <div class="card-header " style="background-color: #2471A3; border-top-left-radius: 21px; border-top-right-radius: 21px;">
+            <div class="row_F">
+                <div>
+                    <span class=" text-white font-weight-bold text-left">แจ้งออก</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body " style="background-color: #40404014; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn " style="background-color: #0b3d58d6; color: #fffa51; border: 0px " ng-click="OpenPageRecord();">ประวัติการเช่าพัก</button>
+                </div>
+                <div class="col-6" style="display: flex; justify-content: flex-end;">
+                    <button class="btn btn-pill btn-success font-weight-bold" style="border: 0px; box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" ng-click="OpenModalAdd();">+</button>
+                </div>
+            </div>
+            <br />
+            <table class="table table-striped text-center ">
+                <thead style="background-color: #557da1; color: white;">
+                    <tr>
+                        <th>ลำดับ</th>
+                        <th>ชั้น</th>
+                        <th>ห้อง</th>
+                        <th>ผู้เช่า</th>
+                        <th>วันที่เข้า</th>
+                        <th>สัญญาขั้นต่ำ</th>
+                        <th>วันที่แจ้งออก</th>
+                        <th>ค่าประกัน (บาท)</th>
+                        <th>ยอดเงินหัก (บาท)</th>
+                        <th>ยอดเงินคืน</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody  style="background-color: aliceblue;">
+                    <tr ng-repeat="c in CheckOutList">
+                        <td style="vertical-align: middle;">{{$index + 1}}</td>
+                        <td style="vertical-align: middle;">{{c.rooms.floors.name}}</td>
+                        <td style="vertical-align: middle;">{{c.rooms.name}}</td>
+                        <td class="text-left" style="vertical-align: middle;">{{c.name}}</td>
+                        <td style="vertical-align: middle;">{{c.dateCI}}</td>
+                        <td style="vertical-align: middle;">{{c.rooms.lease}}</td>
+                        <td style="width: 106px; vertical-align: middle;">
+                            <div class="row_B" style="justify-content: center; margin-right: -67px; margin-left: -36px;">
+                                <input class="form-control col-6" style="width: 220px;" id="date{{$index + 1}}" type="date" ng-model="c.dateOut" disabled />
+                                <span class="col-2" type="button" ng-click="editDateCO(c.id, $index +1);"><i class="bi bi-pencil" style="color:sandybrown"></i></span>
+                            </div>
+                        </td>
+                        <td style="vertical-align: middle;">{{c.rooms.deposit}}</td>
+                        <td class="font-weight-bold text-primary" style="vertical-align: middle;">
+                            <div class="row" style="width: 103px;">
+                                <div class="col" style="margin-left: 13px;">
+                                    {{c.fine}}
+                                </div>
+                                <div class="col" style="margin-right: -65px; margin-left: -61px;">
+                                    <span type="button" ng-click="OpenModalDetail(c.id , $index);"><i class="fas fa-info-circle" style="color: #368d27c9 "></i>@*<i class="bi bi-info-circle-fill" style="color: #ff383870 "></i>*@</span>
+
+                                </div>
+
+                            </div>
+                        </td>
+                        <td class="font-weight-bold" style="color: #f165a5; vertical-align: middle;">{{c.refund}}</td>
+                        <td>
+                            <u><span type="button" class="text-success" ng-click="Confirm(c.id)">ยืนยัน</span></u>&nbsp;
+                            <span type="button" ng-click="DelCO(c.id)"><i class="bi bi-x-square" style="color:red"></i></span>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <div id="nodata" ng-show="CheckOutList == ''" style="height: 100px; margin-top: -10px; display: flex; align-items: center; justify-content: space-around; background-color: #f0f8ff85;">
+                <h4>ไม่มีรายการแจ้งออก</h4>
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Modal Add Checkout  -->
+    <div class="modalnotP modal fade" id="ModalAddCO" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #5499C7">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">แจ้งออก</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #AED6F1 ">
+                    <div class="row">
+                        <div class="col-5">
+                            <label class="font-weight-bold">ชั้น</label>
+                            <select class="form-control" id="floor">
+                                <option selected>---- เลือกชั้น ----</option>
+                                <option ng-repeat="f in FloorList" value="{{f.id}}">{{f.name}}</option>
+                            </select>
+                        </div>
+
+
+                        <div class="col-7">
+                            <label class="font-weight-bold">ห้อง</label>
+                            <select class="form-control" id="room" ng-model="room" ng-change="setDetail();" disabled>
+                                <option value="0">---- เลือกห้อง ----</option>
+                                <option ng-repeat="r in listRoom" value="{{r.room}}">{{r.rooms.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <label class="font-weight-bold">ผู้เช่า</label>
+                            <input class="form-control" id="tenant" ng-model="dataRoom.tenant" disabled />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="font-weight-bold">วันที่เข้า</label>
+                            <input class="form-control" id="dateCI" ng-model="dataRoom.dateCI" disabled />
+                        </div>
+                        <div class="col-6">
+                            <label class="font-weight-bold">สัญญาขั้นต่ำ</label>
+                            <input class="form-control" id="lease" ng-model="dataRoom.lease" disabled />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="font-weight-bold">วันที่แจ้งออก</label>
+                            <input class="form-control" id="dateCO" type="date" ng-model="dateCO" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="background-color: #AED6F1 ">
+                    <button type="button" class="btn btn-primary" ng-click="saveCO()">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="reset()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add and Show dateail  -->
+    <div class="modalnotP modal fade" id="ModalDetail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #5499C7">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">รายละเอียดการหักเงินประกัน</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #AED6F1 ">
+                    <div class="row">
+                        <div class="col-6">
+                            <label>เงินประกัน (บาท)</label>
+                            <input class="form-control" style="width: 166px; height: 29px;" ng-model="deposit" disabled />
+                        </div>
+
+                    </div>
+                    <br />
+                    <table class="table table-striped boderD" id="table">
+                        <thead class="text-center" style="background-color: #557da1; color: white;">
+                            <tr>
+                                <th>ลำดับ</th>
+                                <th>รายการ</th>
+                                <th>จำนวนเงิน (บาท)</th>
+                                <th>
+                                    <span type="button" ng-click="Addtd();"><i class="bi bi-plus-circle-fill" style="color: #12cb3a; font-size: 1.45rem;"></i></span>
+
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody style="color: white;" id="tDetail">
+                            @*<tr id="fristRow" ng-show="listDetail == ''">
+                                    <td><spen class="text-dark ">{{$index + 1}}</spen></td>
+                                    <td><input class="td-input0" type="text" /></td>
+                                    <td><input class="td-input1 text-center" type="text" id="c21" onblur="setTotal()" /></td>
+                                </tr>*@
+                            <tr ng-repeat="d in listDetail">
+                                <td><spen class="text-dark ">{{$index + 1}}</spen></td>
+                                <td><input class="td-input0" type="text" ng-model="d.detail" /></td>
+                                <td>
+                                    <input class="td-input1 text-center" type="text" id="c21" onblur="setTotal()" ng-model="d.amount" />
+                                </td>
+                                <td>
+                                    <span type="button" class="td-del" ng-click="remove($index)"><i class="bi bi-dash-circle-fill" style="color: #b16060; font-size: 1.45rem;"></i></span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot class="text-center" style="background-color: #557da1; color: white;">
+                            <tr>
+                                <th></th>
+                                <th>รวม</th>
+                                <th id="total" @*ng-click="setTotal();"*@></th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+
+                </div>
+                <div class="modal-footer" style="background-color: #AED6F1 ">
+                    <button type="button" class="btn btn-primary" ng-click="saveDetail()">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="reset()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        var random = Math.random();
+    </script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+
+    <script src="~/js/app/controllers/setupCheckOutController.js"></script>
+
+
+
+}

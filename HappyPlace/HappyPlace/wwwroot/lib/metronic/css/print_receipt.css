@@ -1,0 +1,22 @@
+﻿@page {
+    size: A4;
+    margin: 20px;
+   /* margin-bottom: 120px;*/
+   
+}
+
+.table, figure {
+    page-break-inside: avoid;
+}
+
+.cardMenu {
+    display: none;
+}
+
+
+@media print{
+   
+    .print_receipt {
+        display: block;
+    }
+}

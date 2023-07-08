@@ -1,0 +1,312 @@
+﻿@{
+    ViewData["Title"] = "หน้าการชำระ";
+}
+
+<div ng-controller="setupPaymentController" ng-init="init()">
+    <div class="cardMenu" id="none">
+        <div class="card-header " style="background-color: #2471A3; border-top-left-radius: 21px; border-top-right-radius: 21px;">
+            <div class="row_F">
+                <div>
+                    <span class=" text-white font-weight-bold text-left">การชำระ</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body " style="background-color: #40404014; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+            <div class="row">
+                <div class="col-5">
+                    <div class="row " style="align-items: center">
+
+                        <div class="col-1">
+                            <span class="font-weight-bold">เดือน</span>
+                        </div>
+                        <div class="col-4">
+                            <select class="form-control" id="selectMonth" ng-model="month">
+                                <option ng-repeat="m in monthList" id="{{m.name}}" value="{{m.id}}">{{m.name}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-1" style="margin-right: -22px;">
+                            <span class="font-weight-bold">ปี</span>
+                        </div>
+                        <div class="col-3">
+                            <input id="yearpk" class="date-own form-control" ng-model="year">
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-7">
+                    <div class="row" style="align-items: center; display: flex; justify-content: flex-end;">
+
+                        <div class="col-1">
+                            <span class="font-weight-bold">ชั้น</span>
+                        </div>
+                        <div class="col-3" style="margin-left: -14px;">
+                            <select class="form-control" id="searchByFloor" ng-model="floor" ng-change="sort()">
+                                <option value="all">ทั้งหมด</option>
+                                <option ng-repeat="f in  FloorList" value="{{f.id}}">{{f.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-1">
+                            <span class="font-weight-bold">สถานะ</span>
+                        </div>
+                        <div class="col-3" >
+                            <select class="form-control" id="searchByStatus" ng-model="status" ng-change="sort()">
+                                <option value="all">ทั้งหมด</option>
+                                <option ng-repeat="s in StatusList" ng-show="s.name == 'ค้างชำระ' || s.name == 'ชำระแล้ว'" value="{{s.id}}">{{s.name}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-2" style="margin-right: 4px;">
+                            <span class="font-weight-bold">ชำระโดย</span>
+                        </div>
+                        <div class="col-3" style="margin-left: -48px;">
+                            <select class="form-control" id="searchByStatus" ng-model="paidBy">
+                                <option value="" selected>ทั้งหมด</option>
+                                <option value="เงินสด">เงินสด</option>
+                                <option value="โอนเงิน">โอนเงิน</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row text-center" style="margin: 17px; display: flex; align-items: center;">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="card" style="background-color: #f0fffb8f; border-radius: 10px;">
+                                <span class="font-weight-bold" style="margin-top: 10px; font-size: 12px">ยอดชำระทั้งหมด :</span>
+                                <span class="font-weight-bold text-success" style="margin-bottom: 10px; font-size: 16px" id="total">0</span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-4">
+                            <div class="card" style="background-color: #f0fffb8f; border-radius: 10px;">
+                                <span class="font-weight-bold" style="margin-top: 10px; font-size: 12px">ยอดชำระตอนนี้ : </span>
+                                <span class="font-weight-bold text-primary" style="margin-bottom: 10px; font-size: 16px" id="now">0</span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-6">
+                    <div class="row" style=" align-items: center; display: flex; justify-content: flex-end; ">
+                        <div class="col-3" style="margin-right: -25px;">
+                            <span class="font-weight-bold">กำหนดเขตชำระ</span>
+                        </div>
+                        <div class="col-3">
+
+                            <input type="text" class="form-control " ng-model="deadline" disabled>
+                        </div>
+
+
+                        <div class="col-1">
+                            <button class="btn " style=" box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; display: flex; align-items: center; border-color: #f0f8ff00; background-color: #23b39b54; border-radius: 1.5px; " id="btnSetup" type="button" ng-click="setup()">
+                                <i class="bi bi-gear" style="color: white"></i>
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="row" style="margin-top: 10px; align-items: center; display: flex; justify-content: flex-end; ">
+                        <div class="col-3" style="margin-right: -34px;">
+                            <span class="font-weight-bold">อัตราค่าปรับ</span>
+                        </div>
+                        <div class="col-3" style="margin-right: 34px;">
+                            <input type="text" class="form-control" ng-model="laterate" disabled>
+                        </div>
+                        <div class="col-2" style="margin-left: -45px; margin-right: -34px;">
+                            <span class="font-weight-bold">บาท/วัน</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <br />
+            <table class="table table-striped text-center table-bordered fixed_header">
+                <thead style="background-color: #557da1; color: white;">
+                    <tr style="text-align: center">
+                        <th style="width: 53px">ลำดับ</th>
+                        <th style="width: 60px">ชั้น</th>
+                        <th> ห้อง</th>
+                        <th style="width: 140px;">ผู้เช่า</th>
+                        <th>ยอดชำระ<br />(บาท)</th>
+                        <th>ชำระล่าช้า<br />(วัน)</th>
+                        <th>ค่่าปรับ<br />(บาท)</th>
+                        <th>ยอดชำระรวม<br />(บาท)</th>
+
+                        <th>วันที่ชำระ<br /></th>
+                        <th>รูปแบบการชำระ</th>
+                        <th>สถานะ<br /></th>
+                        <th style="width: 60px">
+                            <span type="button" class="btn btn-pill btn-warning" data-toggle="tooltip" data-placement="top" title="พิมพ์ใบเสร็จทั้งหมด" ng-click="printReceipt('all')" @*onclick="window.print();*@>
+                                <i class="bi bi-printer-fill"></i>
+                            </span>
+                        </th>
+                        <th style="width: 11.25px; padding: 0px;"></th>
+
+                    </tr>
+                </thead>
+                <tbody id="Bill" class="bill" style="background-color: #cfe9ff;" ng-show="listBill != ''">
+                    <tr ng-repeat="b in listBill1 | filter: paidBy">
+                        <td style="width: 60px">{{$index + 1}}</td>
+                        <td style="width: 60px">{{b.rooms.floors.name}}</td>
+                        <td style="width: 108px">{{b.rooms.name}}</td>
+                        <td class="text-left" style="width: 165px;">{{b.tenants.name}}</td>
+                        <td style="width: 108px" class="text-primary">{{b.totalBill}}</td>
+                        <td style="width: 108px">{{b.dayLate}}</td>
+                        <td style="width: 108px" class="text-primary">{{b.lateBill}}</td>
+                        <td style="width: 108px" class="font-weight-bold text-success">{{b.totalBillLast}}</td>
+                        <td style="width: 115px" ng-show="b.datePay == '-'">{{b.datePay}}</td>
+                        <td style="width: 101px" ng-show="b.datePay != '-'">{{b.datePay}}</td>
+                        <td style="width: 100px">{{b.paidBy}}</td>
+                        <td style="width: 108px" class="text-danger" ng-show="b.statuses.name == 'ค้างชำระ'">
+                            <span type="button" ng-click="paySuccess(b);">
+                                <u>{{b.statuses.name}}</u>
+                            </span>
+
+                        </td>
+                        <td style="width: 108px" class="text-success" ng-show="b.statuses.name == 'ชำระแล้ว'">
+
+                            <span type="button">
+                                {{b.statuses.name}}
+                            </span>
+
+                        </td>
+                        <td style="width: 60px">
+                            <span type="button" ng-show="b.statuses.name == 'ชำระแล้ว'" ng-click="printReceipt(b.id)">
+                                <i class="bi bi-printer-fill" style="color: #9e58bb"></i>
+                            </span>
+                        </td>
+                    </tr>
+
+
+
+
+                </tbody>
+
+            </table>
+            <div class="card text-center" ng-show="listBill1 == '' || listBill == ''" style="height: 100px; margin-top: -10px; display: flex;  justify-content: center; background-color: #f0f8ff85;">
+                <span>ไม่มีบิลค่าเช่า</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal Setup  -->
+    <div class="modalnotP modal fade" id="ModalSetup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #5499C7">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">ตั้งค่ากำหนดเขตชำระ/อัตราค่าปรับ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #AED6F1 ">
+                    <div class="row">
+                        <div class="col-6">
+                            <label class="font-weight-bold">กำหนดเขตชำระ</label>
+                            <input class="form-control" type="date" ng-model="setupdeadline" />
+                        </div>
+
+
+                        <div class="col-6">
+                            <label class="font-weight-bold">อัตราค่าปรับ (บาท)</label>
+                            <input class="form-control" type="number" ng-model="setuplateRate" />
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer" style="background-color: #AED6F1 ">
+                    <button type="button" class="btn btn-primary" ng-click="editSetup()">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="reset()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card_P">
+        <div class="print_receipt">
+
+            <table class="table table-bordered1" ng-repeat="b in listBillPrint;" id="printTable{{b.id}}">
+                <tr>
+                    <th colspan="5" class="text-center font-weight-bold" style="font-size: 18px;">ใบเสร็จรับเงิน</th>
+                </tr>
+                <tr>
+                    <th colspan="5" class="text-center">ค่าเช่าหอพัก ประจำเดือน: {{b.months.name}}</th>
+                </tr>
+                <tr class="text-center">
+                    <td style="width: 100px;"><span class="font-weight-bold">ชั้น :</span>&nbsp;&nbsp; {{b.rooms.floors.name}}</td>
+                    <td><span class="font-weight-bold">ห้อง :</span>&nbsp;&nbsp; {{b.rooms.name}}</td>
+                    <td colspan="2"><span class="font-weight-bold">ผู้เช่า :</span>&nbsp;&nbsp; {{b.tenants.name}}</td>
+                    <td><span class="font-weight-bold">วันที่ออกบิล :</span>&nbsp;&nbsp; {{b.date}}</td>
+
+                </tr>
+                <tr>
+                    <td style="width: 100px;"><span class="font-weight-bold">ค่าห้อง :</span></td>
+                    <td colspan="4">{{b.roomBill}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                    <td style="width: 100px; border-top: 0px;"><span class="font-weight-bold">ค่าน้ำ :</span></td>
+                    <td colspan="4" style="border-top: 0px;">{{b.waterBill}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="width: 100px; border-top: 0px;"><span class="font-weight-bold">ค่าไฟ :</span></td>
+                    <td rowspan="2" class="text-center" style="border-top: 0px;"><span class="font-weight-bold">มิเตอร์ไฟครั้งก่อน</span><br />{{b.emeterStart}}</td>
+                    <td rowspan="2" class="text-center" style="border-top: 0px;"><span class="font-weight-bold">มิเตอร์ไฟครั้งหลัง</span><br />{{b.emeterLast}}</td>
+                    <td rowspan="2" class="text-center" style="border-top: 0px;"><span class="font-weight-bold">จำนวนที่ใช้</span><br />{{b.emeterLast - b.emeterStart}}</td>
+                    <td rowspan="2" class="text-center" style="border-top: 0px;"><span class="font-weight-bold">ยอดเงิน</span><br />{{b.elecBill}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td style="width: 120px; border-top: 0px;"><span class="font-weight-bold">ค่าปรับชำระล่าช้า :</span></td>
+                    <td colspan="4" style="border-top: 0px;">{{b.lateBill}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold" style="width: 100px;">ยอดรวม :</td>
+                    <td colspan="4" class="font-weight-bold text-right text-danger">{{b.totalBillLast}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                    <td style="width: 120px;"><span class="font-weight-bold">ชำระโดย :</span></td>
+                    <td colspan="4">&nbsp;&nbsp;<u>{{b.paidBy}}</u></td>
+                </tr>
+                <tr style="height: 80px;">
+
+                    <td style="width: 120px; border-top: 0px;"><span class="font-weight-bold">ผู้รับเงิน :</span></td>
+                    <td colspan="3" style="border-top: 0px;">&nbsp;&nbsp;......................................................................</td>
+                    <td colspan="1" style="border-top: 0px;" class="text-right"><span class="font-weight-bold ">วันที่ชำระ :</span>&nbsp;&nbsp; {{b.datePay}}</td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+        var random = Math.random();
+    </script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+
+    <link href="~/lib/metronic/css/print_receipt.css" rel="stylesheet" media="print" />
+
+    <script src="~/js/app/controllers/setupPaymentController.js"></script>
+    @*<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>*@
+
+  
+
+}

@@ -1,0 +1,267 @@
+﻿@{
+    ViewData["Title"] = "หน้าค่าเช่า";
+}
+
+
+<div ng-controller="setupBillController" ng-init="init()">
+    <div class=" cardMenu">
+        <div class="card-header " style="background-color: #2471A3; border-top-left-radius: 21px; border-top-right-radius: 21px;">
+            <div class="row_F">
+                <div>
+                    <span class=" text-white font-weight-bold text-left">คำนวณค่าเช่า</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body " style="background-color: #40404014; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+            <div class="row">
+                <div class="col-9" style="margin-right: -44px;">
+                    <div class="row " style="align-items: center">
+
+                        <div class="col-1" style="margin-right: -30px;">
+                            <span class="font-weight-bold">เดือน</span>
+                        </div>
+                        <div class="col-2">
+                            <select class="form-control" id="selectMonth" ng-model="month">
+                                <option ng-repeat="m in monthList" id="{{m.name}}" value="{{m.id}}">{{m.name}}</option>
+                            </select>
+
+                        </div>
+                        <div class="col-1" style="margin-right: -50px;">
+                            <span class="font-weight-bold">ปี</span>
+                        </div>
+                        <div class="col-2">
+                            <input id="yearpk" class="date-own form-control" ng-model="year">
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-3">
+                    <div class="row" style="align-items: center;">
+                        <div class="col-1">
+                            <span class="font-weight-bold">ชั้น</span>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" id="searchByFloor" ng-model="floor" ng-change="sort(floor)">
+                                <option value="all">ทั้งหมด</option>
+                                <option ng-repeat="f in  FloorList" value="{{f.id}}">{{f.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-1" style="margin-left: -17px;" >
+
+                            <button class="btn btn-pill btn-primary inbtn" type="button" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; align-content: center" ng-click="setfootBill()" data-toggle="tooltip" data-placement="top" title="รายละเอียดท้ายบิล">
+                                <i class="bi bi-file-earmark-break"></i>
+                            </button>
+                        </div>
+                        <div class="col-1" style="margin-left: 19px;" >
+
+                            <button class="btn btn-pill btn-warning inbtn" type="button" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; align-content: center" @*ng-click="setfootBill()"*@ onclick="document.title = 'ค่าเช่าหอพัก'; window.print();">
+                                <i class="bi bi-printer"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+
+            <table class="table table-striped text-center table-bordered fixed_header">
+                <thead style="background-color: #557da1; color: white;">
+                    <tr style="text-align: center">
+                        <th>ลำดับ</th>
+                        <th>ชั้น</th>
+                        <th padding-left: 1px;> ห้อง</th>
+                        <th width="100px">ผู้เช่า</th>
+                        <th>จำนวนผู้พัก<br />(คน)</th>
+                        <th>ค่าห้อง<br />(บาท)</th>
+                        <th>ค่าน้ำ<br />(บาท/คน)</th>
+                        <th>ค่าน้ำ<br />(บาท)</th>
+                        <th>มิเตอร์ไฟครั้งก่อน<br />(หน่วย)</th>
+                        <th width="120px">มิเตอร์ไฟครั้งหลัง<br />(หน่วย)</th>
+                        <th>จำนวนไฟที่ใช้<br />(หน่วย)</th>
+                        <th>ค่าไฟ<br />(บาท/หน่วย)</th>
+                        <th>ค่าไฟ<br />(บาท)</th>
+                        <th>ยอดรวม<br />(บาท)</th>
+                    </tr>
+                </thead>
+
+
+                <tbody id="noBill" class="nobill" style="background-color: aliceblue; ">
+
+                    <tr ng-repeat="r in listRoom1 ">
+                        <td width="77px">{{$index + 1}}</td>
+                        <td width="77px">{{r.rooms.floors.name}}</td>
+                        <td width="77px">{{r.rooms.name}}</td>
+                        <td width="120px" class="text-left">{{r.name}}</td>
+                        <td width="77px">{{r.total}}</td>
+                        <td width="77px" class="text-primary">{{r.rooms.roomRate}}</td>
+                        <td width="77px">{{r.rooms.waterRate}}</td>
+                        <td width="77px" class="text-primary">{{r.waterBill}}</td>
+                        <td width="77px" id="ES{{r.room}}">{{r.emeterStart}}</td>
+                        <td width="120px">
+                            <div class="row_B text-center" style="margin-right: -67px;" ng-click="CalBill(r.room, $index+1);">
+                                <input class="form-control col-6" type="number" id="EL{{r.room}}" ng-model="EL" />
+                                <span class="col-2" type="button" id="edit{{r.room}}" ng-click="editEL('room',r.room);" hidden><i class="bi bi-pencil" style="color:sandybrown"></i></span>
+
+                            </div>
+                            <div class="errmsg text-danger" id="errmsgEL{{r.room}}"></div>
+                        </td>
+                        <td width="77px" style="padding-left: 48px;" id="amount{{r.room}}"></td>
+                        <td width="77px" style="padding-left: 30px;">{{r.rooms.electricRate}}</td>
+                        <td width="77px" style="padding-left: 30px;" id="eBill{{r.room}}" class="text-primary"></td>
+                        <td width="77px" style="padding-left: 30px;" id="tBill{{r.room}}" class="text-success font-weight-bold"></td>
+
+                        @*<td>
+                    <span type="button" ng-click="gotoCI(b.id)"><i class="bi bi-plus-square" style="color: green"></i></span>
+                    &nbsp;<span type="button" ng-click="DelBook($index)"><i class="bi bi-x-square" style="color:red"></i></span>
+                </td>*@
+                    </tr>
+
+                </tbody>
+                <tbody id="Bill" class="bill" style="background-color: #cfe9ff;">
+                    <tr class="separator" id="finish" style="background-color: #7cff958f; display: flex; justify-content: space-around;">
+                        <td colspan="14" class="text-center">
+                            คำนวณค่าเช่าแล้ว
+                        </td>
+                    </tr>
+                    <tr ng-repeat="b in listBill1;">
+                        <td width="77px">{{$index + 1}}</td>
+                        <td width="77px">{{b.rooms.floors.name}}</td>
+                        <td width="77px">{{b.rooms.name}}</td>
+                        <td width="120px" class="text-left">{{b.tenants.name}}</td>
+                        <td width="77px">{{b.tenants.total}}</td>
+                        <td width="77px" class="text-primary">{{b.roomBill}}</td>
+                        <td width="77px">{{b.rooms.waterRate}}</td>
+                        <td width="77px" class="text-primary">{{b.waterBill}}</td>
+                        <td width="77px" id="ES{{b.room}}">{{b.emeterStart}}</td>
+                        <td width="120px">
+                            <div class="row_B" style="margin-right: -67px;" ng-click="CalBill2(b.room, $index+1, b.emeterLast);">
+                                <input class="form-control col-6" type="number" id="ELB{{b.room}}" ng-model="b.emeterLast" disabled />
+                                <span class="col-2" type="button" ng-show="b.statuses.name == 'ค้างชำระ'" id="editB{{b.room}}" ng-click="editEL('bill',b.room);"><i class="bi bi-pencil" style="color:sandybrown"></i></span>
+                            </div>
+                            <div class="errmsg text-danger" id="errmsgEL{{b.room}}"></div>
+                        </td>
+                        <td width="77px" style="padding-left: 48px;" id="amount{{b.room}}">{{b.emeterLast - b.emeterStart}}</td>
+                        <td width="77px" style="padding-left: 30px;">{{b.rooms.electricRate}}</td>
+                        <td width="77px" style="padding-left: 30px;" id="eBill{{b.room}}" class="text-primary">{{b.elecBill}}</td>
+                        <td width="77px" style="padding-left: 30px;" id="tbtBill{{b.room}}" class="text-success font-weight-bold">{{b.totalBill}}</td>
+                    </tr>
+                    <tr id="nocard">
+                        <td colspan="14" style="display: flex; justify-content: space-evenly;">
+                            <div class="card text-center" style="height: 100px; width: 100%;  display: flex; justify-content: center; background-color: #f0f8ff85;">
+                                <span>ไม่มีบิลค่าเช่า</span>
+                            </div>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+                
+                <tfoot>
+                   
+                    <tr>
+                        <td colspan="14" class="text-center" style="background-color: #557da1;">
+                            <button class="btn btn-warning" ng-click="Save();">คำนวณ</button>
+                        </td>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+
+        </div>
+    </div>
+
+    <div class="card_P">
+        <div class="print">
+
+            <table class="table table-bordered1" ng-repeat="b in listBill1;">
+                <tr class="bg-secondary">
+                    <th colspan="5" class="text-center">ค่าเช่าหอพัก ประจำเดือน: {{b.months.name}}</th>
+                </tr>
+                <tr class="text-center">
+                    <td style="width: 100px;"><span class="font-weight-bold">ชั้น :</span>&nbsp;&nbsp; {{b.rooms.floors.name}}</td>
+                    <td><span class="font-weight-bold">ห้อง :</span>&nbsp;&nbsp; {{b.rooms.name}}</td>
+                    <td colspan="2"><span class="font-weight-bold">ผู้เช่า :</span>&nbsp;&nbsp; {{b.tenants.name}}</td>
+                    <td><span class="font-weight-bold">วันที่ออกบิล :</span>&nbsp;&nbsp; {{b.date}}</td>
+                </tr>
+                <tr>
+                    <td style="width: 100px;"><span class="font-weight-bold">ค่าห้อง :</span></td>
+                    <td colspan="4">{{b.roomBill}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                    <td style="width: 100px; border-top: 0px;"><span class="font-weight-bold">ค่าน้ำ :</span></td>
+                    <td colspan="4" style="border-top: 0px;">{{b.waterBill}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="width: 100px; border-top: 0px;"><span class="font-weight-bold">ค่าไฟ :</span></td>
+                    <td rowspan="2" class="text-center" style="border-top: 0px;"><span class="font-weight-bold">มิเตอร์ไฟครั้งก่อน</span><br />{{b.emeterStart}}</td>
+                    <td rowspan="2" class="text-center" style="border-top: 0px;"><span class="font-weight-bold">มิเตอร์ไฟครั้งหลัง</span><br />{{b.emeterLast}}</td>
+                    <td rowspan="2" class="text-center" style="border-top: 0px;"><span class="font-weight-bold">จำนวนที่ใช้</span><br />{{b.emeterLast - b.emeterStart}}</td>
+                    <td rowspan="2" class="text-center" style="border-top: 0px;"><span class="font-weight-bold">ยอดเงิน</span><br />{{b.elecBill}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                </tr>
+                <tr>
+                    <td class="font-weight-bold" style="width: 100px;">ยอดรวม :</td>
+                    <td colspan="4" class="font-weight-bold text-right text-danger">{{b.totalBill}}&nbsp;&nbsp;   บาท</td>
+                </tr>
+                <tr>
+                    <td colspan="5" id="textFB{{$index}}" >
+                        @*<span class="font-weight-bold">ช่องทางชำระเงิน</span><br />
+        707-277-xxxx ธนาคาร: ไทยพาณิชย์  ชื่อบัญชี: นางสาวจิราวรรณ  ภูโคกค้อย<br />
+        <span class="text-danger">*** ชำระหลังวันที่ 5 ของเดือน ปรับวันล่ะ 50 บาท ***</span>*@
+                        @*<span class="font-weight-bold" id="textFB{{$index + 1}}"></span>*@
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+    </div>
+
+    <!-- Modal foot Bill  -->
+    <div class="modalnotP modal fade" id="ModalFootBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #5499C7">
+                    <h5 class="modal-title font-weight-bold" id="exampleModalLongTitle">กำหนดส่วนท้ายบิล</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background-color: #AED6F1 ">
+                    <label>รายละเอียด</label>
+                    @*<input type="text" id="floor" class="form-control" style="height: auto" placeholder="รายละเอียดส่วนท้ายบิล" ng-model="footBill" />*@
+                    <textarea class="textarea" id="footBill" type="text" role="textbox" contenteditable @*ng-model="footBill"*@></textarea>
+                </div>
+                <div class="modal-footer" style="background-color: #AED6F1 ">
+                    <button type="button" class="btn btn-primary" ng-click="Print(footBill)">บันทึก</button>
+
+                    <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="resect()">ยกเลิก</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@section Scripts{
+
+    <script>
+        var random = Math.random();
+    </script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+    <link href="~/lib/metronic/css/Print.css" rel="stylesheet" media="print"/>
+
+
+    <script src="~/js/app/controllers/setupBillController.js"></script>
+
+
+
+}

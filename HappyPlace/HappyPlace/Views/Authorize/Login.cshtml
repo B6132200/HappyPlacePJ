@@ -1,0 +1,193 @@
+﻿@{
+    Layout = null;
+
+    ViewData["Title"] = "หน้าลงชื่อเข้าใช้";
+    //var baseurl = Url.Content("~/");
+
+
+}
+
+@model HappyPlace.Models.VMLogin;
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @*<base href="~/">*@
+    @*<script>
+            window.baseUrl = "@baseurl";
+    </script>*@
+    <meta charset="utf-8" />
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="~/lib/metronic/plugins/global/fonts/Poppins/poppins.css" rel="stylesheet" />
+    <link href="~/lib/metronic/plugins/global/plugins.bundle.css" rel="stylesheet" />
+    <link href="~/lib/metronic/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" />
+    <link href="~/lib/metronic/css/style.bundle.css" rel="stylesheet" />
+
+    <link href="~/css/login.css" rel="stylesheet" />
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body id="kt_body" class="header-fixed header-mobile-fixed header-bottom-enabled subheader-enabled page-loading">
+
+
+    <div class="d-flex flex-column flex-root" style="background: linear-gradient(to right, #808080, #3fada8); ">
+        <!--begin::Login-->
+        <div class="login login-4 login-signin-on d-flex flex-row-fluid" id="kt_login">
+            <div class="d-flex flex-center flex-row-fluid bgi-size-cover bgi-position-top bgi-no-repeat">
+                <div class="login-form text-center p-7 position-relative overflow-hidden">
+                    <!--begin::Login Header-->
+                    <div class="d-flex flex-center" >
+
+                        <i class="bi bi-building-fill" style="color: #d7e5f1; font-size: 100px; display: inline-block; border-radius: 100px; box-shadow: 0px 7px 3px 5px #b5d3b8; padding: 1rem; padding-inline: 3rem; "></i>
+                        @*<i class="fad fa-building" style="font-size: 100px; color: #761313;"></i>*@
+
+                    </div>
+                    <div class="d-flex flex-center mb-5" style="margin-top: 20px;">
+                        <p class="login-label-program-name" style="color: #e3e2de;">
+                            HAPPY PLACE
+                        </p>
+                    </div>
+                    <!--end::Login Header-->
+                    <div class="login-signin">
+                        <form asp-controller="Authorize" asp-action="Login" method="post">
+                            <div class="form" id="kt_login_signin_form">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card" style="background-color: #a1e7bf00;">
+                                            <div class="card-body text-left">
+                                                <div class="form-label-group">
+                                                    <i class="fa fa-user"></i>
+                                                    <input type="text" class="form-control" id="username" autocomplete="on" autofocus="" placeholder="ชื่อผู้ใช้" asp-for="Email">
+                                                    <label for="username">ชื่อผู้ใช้</label>
+                                                </div>
+                                                <div class="form-label-group">
+                                                    <i class="fa fa-lock"></i>
+                                                    <input type="password" class="form-control" id="password" autocomplete="on" placeholder="รหัสผ่าน" asp-for="PassWord">
+                                                    <label for="password">รหัสผ่าน</label>
+                                                </div>
+
+                                                <div class="form-group text-center mt-10">
+                                                    <button class="btn btn-primary btn-outline-white font-weight-bold px-9 py-4 my-3" type="submit" @*onclick="SignIn()"*@>ลงชื่อเข้าใช้</button>
+                                                </div>
+                                                @if (ViewData["ValidateMessage"] != null)
+                                                {
+                                                    <br />
+                                                    <br />
+                                                    <label class="text-white">@ViewData["ValidateMessage"]</label>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!--end::Login-->
+        </div>
+    </div>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="~/lib/metronic/plugins/global/plugins.bundle.js"></script>
+
+    @*<script>
+        var baseUrl = "@baseurl";
+        var usernameElement = document.getElementById("username");
+        var passwordElement = document.getElementById("password");
+
+
+       // var returnUrl = new URL(location.href).searchParams.get("ReturnUrl");
+        function SignIn()
+        {
+
+            var username = usernameElement.value
+            var password = passwordElement.value
+
+            //var returnUrl = new URL(location.href).searchParams.get("ReturnUrl");
+            //$http({
+            //    method: 'POST',
+            //    url: baseUrl + 'Authorize/Login',
+            //    random: $scope.random,
+            //    headers: {
+            //        'Content-Type': 'application/json'
+            //    },
+            //    data:
+            //    {
+            //        username: username,
+            //        password: password,
+            //       // returnUrl: returnUrl,
+
+            //    },
+
+            //}).then(function (res) {
+            //    if (res.data) {
+            //        Swal.fire({
+            //            icon: 'success',
+            //            title: 'บันทึกสำเร็จ'
+            //        }).then((result) => {
+            //            window.location.href = res.redirectToUrl;
+            //        });
+            //    }
+            //    else {
+            //        Swal.fire({
+            //            icon: 'error',
+            //            title: res.data
+            //        })
+
+            //    }
+            //})
+            $.ajax({
+                type: "POST",
+                url: baseUrl + 'Authorize/Login',
+                data:
+                {
+                    username: username,
+                    password: password,
+                   // returnUrl: returnUrl,
+
+                },
+                success: function (res) {
+                    //setCookie('Paperless_Manpower_Token', res.token, 0.3);
+                    window.location.href = res.redirectToUrl;
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log('SignIn error', jqXHR);
+                    var titleErr = jqXHR.responseJSON.Details
+                    var textErr = jqXHR.responseJSON.MoreDetails
+                    Swal.fire({
+                        icon: 'error',
+                        title: titleErr,
+                        text: textErr
+                    }).then(() => {
+                        setTimeout(function () { usernameElement.focus(); }, 500);
+                    });
+                }
+
+            });
+        }
+
+        //usernameElement.addEventListener("keyup", function (event) {
+        //    if (event.keyCode === 13) {
+        //        passwordElement.focus();
+        //    }
+        //});
+        //passwordElement.addEventListener("keyup", function (event) {
+        //    if (event.keyCode === 13) {
+        //        SignIn();
+        //    }
+        //});
+        //enElement.addEventListener("keyup", function (event) {
+        //    if (event.keyCode === 13) {
+        //        SignIn();
+        //    }
+        //});
+
+    </script>*@
+</body>
+</html>

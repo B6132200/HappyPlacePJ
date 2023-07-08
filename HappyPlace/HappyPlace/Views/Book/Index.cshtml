@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "หน้ารายการจอง";
+}
+
+<div ng-controller="setupIndexBookController" ng-init="init()">
+    <div class="cardMenu">
+        <div class="card-header " style="background-color: #2471A3; border-top-left-radius: 21px; border-top-right-radius: 21px;">
+            <div class="row_F">
+                <div>
+                    <span class=" text-white font-weight-bold text-left">รายการจองห้องพัก</span>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-body " style="background-color: #40404014; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+            <div class="row">
+                <div class="col" style="display: flex; justify-content: flex-end;">
+                    <button type="button" class="btn btn-pill btn-success text-right" style="box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;" ng-click="OpenBook()">+</button>
+
+                </div>
+            </div>
+            <br />
+            <table class="table table-striped text-center table-bordered">
+                <thead style="background-color: #557da1; color: white;">
+                    <tr>
+                        <th>ลำดับ</th>
+                        <th>ห้อง</th>
+                        <th>ผู้จอง</th>
+                        <th>เบอร์ติดต่อ</th>
+                        <th>มัดจำ (บาท)</th>
+                        <th>วันที่จอง</th>
+                        <th>วันที่แจ้งเข้า</th>
+                        <th>แรกเข้า (บาท)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+                <tbody style="background-color: aliceblue;">
+
+                    <tr ng-repeat="b in listBook">
+                        <td>{{$index + 1}}</td>
+                        <td>{{b.rooms.name}}</td>
+                        <td class="text-left">{{b.name}}</td>
+                        <td>{{b.phone}}</td>
+                        <td>{{b.deposit}}</td>
+                        <td>{{b.dateB}}</td>
+                        <td style="width: 161px;">
+                            <div class="row_B" style="justify-content: center; margin-right: -45px; margin-left: -15px;">
+                                <input class="form-control col-6" style="width: 219px;"  id="date{{$index + 1}}" type="date" ng-model="b.dateCI" disabled />
+                                <span class="col-2" type="button" ng-click="editDateCI(b.id,b.dateCI,$index +1, b.dateB);"><i class="bi bi-pencil" style="color:sandybrown"></i></span>
+                            </div>
+                            <div class="errmsg text-danger" id="errmsgDateCI{{$index + 1}}"></div>
+                        </td>
+                        <td>{{b.entranceFee}}</td>
+                        <td>
+                            <span type="button" ng-click="gotoCI(b.id)"><i class="bi bi-plus-square" style="color: green"></i></span>
+                            &nbsp;<span type="button" ng-click="DelBook($index)"><i class="bi bi-x-square" style="color:red"></i></span>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <div id="nodata" class="text-center">
+                <h4>ไม่มีรายการจอง</h4>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        var random = Math.random();
+    </script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+
+    <script src="~/js/app/controllers/setupIndexBookController.js"></script>
+
+
+}

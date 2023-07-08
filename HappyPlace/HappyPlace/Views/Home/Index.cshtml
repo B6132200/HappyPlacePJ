@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div ng-controller="setupMenuController" ng-init="Init();">
+    <div class="cardMenu ">
+        <div class="card-header" style=" background-color: #A93226; border-top-left-radius: 21px; border-top-right-radius: 21px; ">
+            <span class="badge-warning text-light font-weight-bold rounded-pill" style="padding-left:50px; padding-right:50px; padding-bottom: 5px; padding-top: 5px;">เมนู</span>
+        </div>
+        <div class="card-body text-center" style="background-color: #FAD7A0; border-bottom-left-radius: 41px; border-bottom-right-radius: 41px; padding-bottom: 5rem; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);">
+
+            <div class="row" style="padding-top: 30px;">
+                <div class="col-4">
+
+                    <button type="button" class="btn btn-lg text-white " style="background-color: #148F77; padding: 20px 130px; border-radius: 10.3rem; border: 3px solid #ffbb8c;" ng-click="OpenRoom()">ห้องพัก</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-lg text-white " style="background-color: #148F77; padding: 20px 130px; border-radius: 10.3rem; border: 3px solid #ffbb8c;" ng-click="OpenCheckin()">แจ้งเข้า</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-lg text-white " style="background-color: #148F77; padding: 20px 130px; border-radius: 10.3rem; border: 3px solid #ffbb8c;" ng-click="OpenCheckout()">แจ้งออก</button>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 30px;">
+                <div class="col-4">
+                    <button type="button" class="btn btn-lg text-white " style="background-color: #148F77; padding: 20px 130px; border-radius: 10.3rem; border: 3px solid #ffbb8c;" ng-click="OpenBook()">การจอง</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-lg text-white " style="background-color: #148F77; padding: 20px 106px; border-radius: 10.3rem; border: 3px solid #ffbb8c;" ng-click="OpenBill()">คำนวณค่าเช่า</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-lg text-white " style="background-color: #148F77; padding: 20px 130px; border-radius: 10.3rem; border: 3px solid #ffbb8c;" ng-click="OpenPayment()">การชำระ</button>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+</div>
+
+@section Scripts{
+
+
+<script src="~/js/app/controllers/setupMenuController.js"></script>
+}

@@ -1,0 +1,108 @@
+﻿@{
+    var baseurl = Url.Content("~/");
+}
+@*@{
+        var baseurl = @HttpExtensions.WebBaseUrl + "/";
+    }*@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    @*<base href="~/">*@
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HappyPlace</title>
+
+    <!--begin::Global Theme Styles(used by all pages)-->
+    <link href="~/lib/metronic/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/metronic/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/metronic/css/style.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script>
+            window.baseUrl = "@baseurl";
+    </script>
+</head>
+<body style="background-color: #dcfbf1 " ng-app="MainApp">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3" style="background-color: #033E3E">
+            <div class="container">
+
+
+                <a asp-controller="Menu" asp-action="Index"><i class="bi bi-building-fill navbar-brand" style="color: #66CDAA"></i></a>
+
+
+                <a class="navbar-brand text-warning font-weight-bold" asp-area="" asp-controller="Menu" asp-action="Index">HAPPY PLACE</a>
+                @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+
+                    </button>*@
+
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    @*<ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Index"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Privacy"></a>
+                            </li>
+                        </ul>*@
+                </div>
+                @*<a><i class="bi bi-person-circle font-weight-bold" style="color: #66CDAA;"></i></a>*@
+                <div class="btn btn-icon w-auto d-flex  ">
+                    <a asp-area="" asp-controller="Menu" asp-action="LogOut"
+                       class="btn btn-icon align-items-center btn-lg px-2 font-weight-bolde">
+                        <i class="bi bi-person-square" style="color: #66CDAA;"></i>&nbsp;
+                        <span class="btn btn-hover-text-dark  btn-hover-bg-white btn-pill text-white" style="margin: 12px; padding-top: 1px; padding-bottom: 1px; border:2px solid;">Logout</span>
+                    </a>
+                </div>
+                @*<div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </div>*@
+
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    @*<script>
+            window.baseUrl = "@baseurl";
+        </script>*@
+    <footer class="footer">
+        @*<div class="container">
+                &copy; 2023 - HappyPlace - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>*@
+    </footer>
+    <!--end::Global Theme Bundle-->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <script src="~/lib/metronic/plugins/global/plugins.bundle.js"></script>
+    <script src="~/lib/metronic/plugins/custom/prismjs/prismjs.bundle.js"></script>
+    <script src="~/lib/metronic/js/scripts.bundle.js"></script>
+    <!--end::Global Theme Bundle-->
+    <script src="~/lib/moment.js"></script>
+    <script src="~/lib/angular/dist/angular.js"></script>
+    <script src="~/lib/jquery.blockUI.js"></script>
+    <!--Angular-->
+    <script src="~/js/app/app.js"></script>
+    <script src="~/js/app/directives.js"></script>
+    <script src="~/js/app/factory.js"></script>
+    <script src="~/js/app/controllers/homeCtrl.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link href="~/lib/metronic/css/StyleCustom.css" rel="stylesheet" />
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

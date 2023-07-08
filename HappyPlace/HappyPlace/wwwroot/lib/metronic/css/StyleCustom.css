@@ -1,0 +1,272 @@
+﻿.btn_menu {
+    background-color: #2471A3;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    border-radius: 10.3rem;
+    border: 3px solid #ffbb8c;
+}
+
+    .active, .btn_menu:hover {
+        background-color: #154360;
+    }
+
+.active, btn_logout {
+    background-color: #f3f3f3;
+}
+
+.row_F {
+    max-width: 100%;
+    max-height: 2rem;
+    display: flex;
+    justify-content: space-between
+}
+
+.row_B {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -12px;
+    margin-left: 10px;
+    align-items: center;
+}
+
+.ulR {
+    list-style-type: none;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+
+.table-bordered td, .table-bordered th {
+    border: 1px solid #40404014;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 0px solid #dee2e6;
+}
+
+.inbtn {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: auto;
+    height: 30px;
+}
+
+.my-custom-scrollbar {
+    height: 500px;
+    overflow-y: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+.table-fixed {
+    width: 100%;
+    background-color: #f3f3f3;
+}
+
+.tbody_B {
+    display: block;
+    height: 200px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.separator {
+    height: 45px;
+    
+}
+
+.table-bordered {
+    border: 0px solid #dee2e6 !important;
+}
+
+.table-bordered1 {
+    border: 2px solid #dee2e6 !important;
+    margin-bottom: 3rem;
+}
+.table-bordered1 th td {
+    border: 2px solid #dee2e6 !important;
+}
+
+    .table-bordered td, .table-bordered th {
+        border: 0px solid #40404014 !important;
+
+    }
+.fixed_header {
+    width: 1078px;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+
+   /* .fixed_header tbody {
+        display: block;
+        width: 1078px;
+        overflow: auto;
+        height: 100px;
+    }*/
+
+.nobill {
+    display: block;
+    width: 1078px;
+    overflow: auto;
+    height: auto;
+    max-height: 500px;
+}
+
+.bill {
+    display: block;
+    width: 1078px;
+    overflow: auto;
+    height: auto;
+    max-height: 500px;
+}
+
+.record {
+    display: block;
+    width: 1078px;
+    overflow: auto;
+    height: auto;
+    max-height: 500px;
+}
+
+.fixed_header tbody tr {
+     display: block;
+    width: 1066px;
+}
+       
+
+.fixed_header thead tr tfoot tr{
+    display: block;
+}
+
+.print{
+    display: none;
+ }
+
+.print_receipt {
+    display: none;
+}
+
+.card_P {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    /* background-color: #fff; */
+    background-clip: border-box;
+    /* border: 1px solid rgba(0,0,0,.125); */
+    border-radius: 0.25rem;
+    font-size: 18px
+}
+
+.textarea {
+    display: block;
+    /*width: 473px;
+    width: fit-content;*/
+    max-width: 472px;
+    min-width: 472px;
+    overflow: hidden;
+    resize: both;
+    min-height: 100px;
+    line-height: 20px;
+    border: 1px solid;
+    border-radius: 4px;
+    background-color: aliceblue;
+    padding: 1px 5px;
+}
+
+.boderD th:nth-child(1) td:nth-child(1) {
+    
+     width: 280px;
+}
+
+.boderD tbody tr td:first-child {
+   
+    text-align: center !important; 
+}
+
+.boderD tbody tr td:last-child {
+    text-align: center !important;
+}
+
+
+
+
+
+.boderD thead th {
+    border: 1px solid;
+    /* width: 280px;*/
+    padding: 5px;
+    vertical-align: middle;
+}
+
+.boderD tbody td {
+    border: 1px solid;
+    /* width: 280px;*/
+    padding: 5px;
+    vertical-align: middle;
+}
+.boderD tfoot th {
+    border: 1px solid;
+    /* width: 280px;*/
+    padding: 5px;
+    vertical-align: middle;
+}
+.td-input0 {
+    width: 210px;
+    border: 0px;
+   background: none;
+}
+
+.td-input1 {
+    width: 170px;
+    border: 0px;
+    background: none;
+}
+.td-input0:focus  {
+    outline: none
+}
+
+.td-input1:focus {
+    outline: none
+}
+
+.td-del {
+    text-align: center;
+}
+
+
+/*.td-input1::-webkit-outer-spin-button,
+.td-input1::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+}*/
+
+
+    /*.textarea[contenteditable]:empty::before {
+        padding: 10px;
+        content: "รายละเอียด";
+        color: gray;
+    }*/
